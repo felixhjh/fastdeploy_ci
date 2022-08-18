@@ -1,0 +1,17 @@
+============ failed cases =============
+./test_efficientnetb0_small.py
+./test_efficientnetb7.py
+./test_ghostnet_x0_5.py
+./test_ghostnet_x1_3_ssld.py
+./test_inceptionv3.py
+./test_mobilenetv1_ssld.py
+./test_mobilenetv1_x0_25.py
+./test_mobilenetv2_ssld.py
+./test_mobilenetv2_x0_25.py
+./test_mobilenetv3_large_x1_0_ssld.py
+./test_mobilenetv3_small_x0_35_ssld.py
+./test_nanodet_plus.py
+./test_pphgnet_base_ssld.py
+./test_pphgnet_tiny_ssld.py
+./test_pp_lcnet.py
+./test_pp_lcnetv2.py
