@@ -64,7 +64,7 @@ echo "total bugs: "${bug} >> result.txt
 #    cp result.txt ${output_dir}/result_${py_version}.txt
 #fi
 cat result.txt
-total_cost=$(expr $ci_et - $job_bt)
+total_cost=$(expr $job_et - $ci_bt)
 case_cost=$(expr $job_et - $job_bt)
 echo "case_cost: $case_cost s"
 echo "total_cost: $total_cost s"
