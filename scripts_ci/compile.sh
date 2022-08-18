@@ -1,9 +1,8 @@
 #!/bin/bash
 
 CURRENT_DIR=$(cd $(dirname $0); pwd)
-export CODE_PATH=../${CURRENT_DIR}/code
+export CODE_PATH=${CURRENT_DIR}/../code
 export fastdeploy_dir=${CODE_PATH}/FastDeploy
-CURRENT_DIR=$(cd $(dirname $0); pwd)
 echo ${fastdeploy_dir}
 
 
@@ -24,7 +23,7 @@ function install() {
     export ENABLE_PADDLE_BACKEND=ON
     export ENABLE_TRT_BACKEND=ON
     export CUDA_DIRECTORY=/usr/local/cuda-11.2
-    export TRT_DIRECTORY=../${CURRENT_DIR}/thirdparty/TensorRT-8.4.1.5
+    export TRT_DIRECTORY=${CURRENT_DIR}/../thirdparty/TensorRT-8.4.1.5
     export ENABLE_VISION=ON
     export ENABLE_VISION_VISUALIZE=ON
     export ENABLE_PADDLE_FRONTEND=ON

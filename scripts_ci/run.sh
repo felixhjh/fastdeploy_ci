@@ -1,22 +1,26 @@
 #!/bin/bash
+ci_bt=`date '+%Y%m%d%H%M%S'`
 CURRENT_DIR=$(cd $(dirname $0); pwd)
 export py_version=python
 export MODEL_PATH=${CURRENT_DIR}/../models
 export DATA_PATH=${CURRENT_DIR}/../data
 export TOOLS_PATH=${CURRENT_DIR}/../tools
-bash ${CURRENT_DIR}/compile.sh
+#bash ${CURRENT_DIR}/compile.sh
 cd ${MODEL_PATH}
 rm -rf ./*
 cd ${TOOLS_PATH}
 $py_version ${TOOLS_PATH}/download_models.py
 cd ${DATA_PATH}
 rm -rf ./*
+unset http_proxy
+unset https_proxy
 wget -q https://bj.bcebos.com/paddlehub/fastdeploy/coco_dataset_ci.tgz
 wget -q https://bj.bcebos.com/paddlehub/fastdeploy/imagenet_dataset_ci.tgz
 for i in `ls ./*.tgz`
    do
      tar -zxvf $i >/dev/null
    done
+echo ${CURRENT_DIR}
 cd ${CURRENT_DIR}
 rm -rf result.txt 
 cases=`find ./ -name "test*.py" | sort`
@@ -60,6 +64,8 @@ echo "total bugs: "${bug} >> result.txt
 #    cp result.txt ${output_dir}/result_${py_version}.txt
 #fi
 cat result.txt
-cost=$(expr $job_et - $job_bt)
-echo "$cost s"
+total_cost=$(expr $job_et - $job_bt)
+case_cost=$(expr $job_et - $job_bt)
+echo "case_cost: $case_cost s"
+echo "total_cost: $total_cost s"
 exit ${bug}

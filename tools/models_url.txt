@@ -25,3 +25,4 @@ https://bj.bcebos.com/paddlehub/fastdeploy/yolov7.onnx
 https://bj.bcebos.com/paddlehub/fastdeploy/yolov6s.onnx
 https://bj.bcebos.com/paddlehub/fastdeploy/scaled_yolov4-p5-896.onnx
 https://bj.bcebos.com/paddlehub/fastdeploy/nanodet-plus-m_320.onnx
+https://bj.bcebos.com/paddlehub/fastdeploy/ppyoloe_crn_l_300e_coco.tgz

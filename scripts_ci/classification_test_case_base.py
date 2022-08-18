@@ -48,15 +48,15 @@ class CaseBase(object):
         result = self.run_predict()
         check_result(result, self.util.ground_truth, "test_paddle_cpu_backend", self.model_name, 0,self.csv_save_path)
 
-   # def test_paddle_gpu_backend(self):
-   #     self.option.use_paddle_backend()
-   #     self.option.use_gpu(0)
-   #     result = self.run_predict()
-   #     check_result(result, self.util.ground_truth, "test_paddle_gpu_backend", self.model_name, 0, self.csv_save_path)
+    def test_paddle_gpu_backend(self):
+        self.option.use_paddle_backend()
+        self.option.use_gpu(0)
+        result = self.run_predict()
+        check_result(result, self.util.ground_truth, "test_paddle_gpu_backend", self.model_name, 0, self.csv_save_path)
 
-   # def test_trt(self):
-   #     self.set_trt_info()
-   #     result = self.run_predict()
-   #     check_result(result, self.util.ground_truth, "test_trt", self.model_name, 0, self.csv_save_path)
+    def test_trt(self):
+        self.set_trt_info()
+        result = self.run_predict()
+        check_result(result, self.util.ground_truth, "test_trt", self.model_name, 0, self.csv_save_path)
 
 
