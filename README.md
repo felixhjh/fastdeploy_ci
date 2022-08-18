@@ -10,4 +10,4 @@
 bash run.sh
 ```
 CI中的testcase共19个PaddleClas模型、1个PPYoloe模型、8个外部的Detection模型。默认CI运行5个PaddleClas模型、1个PPYoloe、8个外部的Detection模型
->> **注意**: 若需修改以上编译选项，请手动更改[run.sh](scripts_ci/run.sh)中的ignore字段
+>> **注意**: 若需运行更多的PaddleCla模型，请手动更改[run.sh](scripts_ci/run.sh)中的ignore字段
