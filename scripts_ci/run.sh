@@ -5,7 +5,7 @@ export py_version=python
 export MODEL_PATH=${CURRENT_DIR}/../models
 export DATA_PATH=${CURRENT_DIR}/../data
 export TOOLS_PATH=${CURRENT_DIR}/../tools
-#bash ${CURRENT_DIR}/compile.sh
+bash ${CURRENT_DIR}/compile.sh
 cd ${MODEL_PATH}
 rm -rf ./*
 cd ${TOOLS_PATH}
@@ -22,7 +22,7 @@ for i in `ls ./*.tgz`
    done
 echo ${CURRENT_DIR}
 cd ${CURRENT_DIR}
-rm -rf result.txt 
+rm -rf result.txt ./infer_result/*
 cases=`find ./ -name "test*.py" | sort`
 echo $cases
 ignore="test_efficientnetb0_small.py
@@ -64,7 +64,7 @@ echo "total bugs: "${bug} >> result.txt
 #    cp result.txt ${output_dir}/result_${py_version}.txt
 #fi
 cat result.txt
-total_cost=$(expr $job_et - $job_bt)
+total_cost=$(expr $ci_et - $job_bt)
 case_cost=$(expr $job_et - $job_bt)
 echo "case_cost: $case_cost s"
 echo "total_cost: $total_cost s"
