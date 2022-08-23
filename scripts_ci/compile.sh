@@ -21,6 +21,7 @@ fi
 cd ${fastdeploy_dir}
 
 function install() {
+    $py_version -m pip install -r requirements.txt
     unset http_proxy
     unset https_proxy
     export WITH_GPU=ON
@@ -36,7 +37,6 @@ function install() {
     export ENABLE_TEXT=ON
     export ENABLE_FDTENSOR_FUNC=ON
     export WITH_TESTING=ON
-    $py_version -m pip install -r requirements.txt
     $py_version setup.py build
     $py_version setup.py bdist_wheel
     $py_version -m pip install --upgrade --no-deps --force-reinstall ./dist/*.whl
