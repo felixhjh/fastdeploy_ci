@@ -37,9 +37,9 @@ function install() {
     export ENABLE_FDTENSOR_FUNC=ON
     export WITH_TESTING=ON
     $py_version -m pip install -r requirements.txt
-    python setup.py build
-    python setup.py bdist_wheel
-    pip3 install --upgrade --no-deps --force-reinstall ./dist/*.whl
+    $py_version setup.py build
+    $py_version setup.py bdist_wheel
+    $py_version -m pip install --upgrade --no-deps --force-reinstall ./dist/*.whl
 }
 
 install
