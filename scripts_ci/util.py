@@ -1,4 +1,3 @@
-import paddle
 import yaml
 import os
 
