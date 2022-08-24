@@ -20,27 +20,24 @@ fi
 
 cd ${fastdeploy_dir}
 
-function install() {
-    $py_version -m pip install -r requirements.txt
-    unset http_proxy
-    unset https_proxy
-    export WITH_GPU=ON
-    export ENABLE_ORT_BACKEND=ON
-    export ENABLE_PADDLE_BACKEND=ON
-    export ENABLE_TRT_BACKEND=ON
-    export CUDA_DIRECTORY=/usr/local/cuda-11.2
-    export TRT_DIRECTORY=${CURRENT_DIR}/../thirdparty/TensorRT-8.4.1.5
-    export ENABLE_VISION=ON
-    export ENABLE_VISION_VISUALIZE=ON
-    export ENABLE_PADDLE_FRONTEND=ON
-    export ENABLE_DEBUG=ON
-    export ENABLE_TEXT=ON
-    export ENABLE_FDTENSOR_FUNC=ON
-    export WITH_TESTING=ON
-    $py_version setup.py build
-    $py_version setup.py bdist_wheel
-    $py_version -m pip install --upgrade --no-deps --force-reinstall ./dist/*.whl
-}
+$py_version -m pip install -r requirements.txt
+unset http_proxy
+unset https_proxy
+export WITH_GPU=ON
+export ENABLE_ORT_BACKEND=ON
+export ENABLE_PADDLE_BACKEND=ON
+export ENABLE_TRT_BACKEND=ON
+export CUDA_DIRECTORY=/usr/local/cuda-11.2
+export TRT_DIRECTORY=${CURRENT_DIR}/../thirdparty/TensorRT-8.4.1.5
+export ENABLE_VISION=ON
+export ENABLE_VISION_VISUALIZE=ON
+export ENABLE_PADDLE_FRONTEND=ON
+export ENABLE_DEBUG=ON
+export ENABLE_TEXT=ON
+export ENABLE_FDTENSOR_FUNC=ON
+export WITH_TESTING=ON
+$py_version setup.py build
+$py_version setup.py bdist_wheel
+$py_version -m pip install --upgrade --no-deps --force-reinstall ./dist/*.whl
 
-install
 cd ${CURRENT_DIR}
