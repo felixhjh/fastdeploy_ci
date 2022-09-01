@@ -1,0 +1,101 @@
+resnet50_vd :
+        topk1 : 0.7912
+        topk5 : 0.9444
+
+yolov5s :
+        bbox_mmap : 0.372
+
+yoloxs :
+        bbox_mmap : 0.405
+        
+nanodet_plus_m_320 :
+        bbox_mmap : 0.27
+pp_lcnetv2_base :
+        topk1 : 0.7704
+        topk5 : 0.9327
+
+pp_lcnet_x1_0 :
+        topk1 : 0.7132
+        topk5 : 0.9003
+
+efficientnetb7 :
+        topk1 : 0.843
+        topk5 : 0.9689
+
+efficientnetb0small :
+        topk1 : 0.758
+        topk5 : 0.9258
+
+ghostnet_x1_3_ssld :
+        topk1 : 0.7938
+        topk5 : 0.9449
+
+ghostnet_x0_5:
+        topk1 : 0.6688
+        topk5 : 0.8695
+
+yolov7 :
+        bbox_mmap : 0.514
+
+yolov5liteg:
+        bbox_mmap : 0.391
+
+yolov6s:
+        bbox_mmap : 0.424
+
+yolorp6:
+        bbox_mmap : 0.54
+        
+scaledyolov4p5:
+        bbox_mmap : 0.501
+
+mobilenetv1_x0_25 :
+        topk1 : 0.5143
+        topk5 : 0.7546
+
+mobilenetv1_ssld :
+        topk1 : 0.7789
+        topk5 : 0.9394
+
+mobilenetv2_x0_25 :
+        topk1 : 0.5321
+        topk5 : 0.7652
+
+mobilenetv2_ssld :
+        topk1 : 0.7674
+        topk5 : 0.9339
+
+mobilenetv3_small_x0_35_ssld :
+        topk1 : 0.5555
+        topk5 : 0.7771
+
+mobilenetv3_large_x1_0_ssld:
+        topk1 : 0.7896
+        topk5 : 0.9448
+
+shufflenetv2_x0_25:
+        topk1 : 0.499
+        topk5 : 0.7379
+
+shufflenetv2_x2_0:
+        topk1 : 0.7315
+        topk5 : 0.912
+
+squeezenet1_1:
+        topk1 : 0.601
+        topk5 : 0.819
+
+inceptionv3:
+        topk1 : 0.7914
+        topk5 : 0.9459
+
+pphgnet_tiny_ssld:
+        topk1 : 0.8195
+        topk5 : 0.9612
+
+pphgnet_base_ssld:
+        topk1 : 0.85
+        topk5 : 0.9735
+
+ppyoloe_crn_l_300e:
+        bbox_mmap : 0.514
