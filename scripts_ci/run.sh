@@ -1,6 +1,7 @@
 #!/bin/bash
 ci_bt=`date '+%Y%m%d%H%M%S'`
 CURRENT_DIR=$(cd $(dirname $0); pwd)
+export no_proxy=bcebos.com
 export py_version=python
 export MODEL_PATH=${CURRENT_DIR}/../models
 export DATA_PATH=${CURRENT_DIR}/../data

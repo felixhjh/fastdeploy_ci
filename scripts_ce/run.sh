@@ -1,6 +1,7 @@
 #!/bin/bash
 ci_bt=`date '+%Y%m%d%H%M%S'`
 CURRENT_DIR=$(cd $(dirname $0); pwd)
+export no_proxy=bcebos.com
 export py_version=python
 export MODEL_PATH=${CURRENT_DIR}/../models
 export DATA_PATH=${CURRENT_DIR}/../data
@@ -9,16 +10,6 @@ cd ${MODEL_PATH}
 rm -rf ./*
 cd ${TOOLS_PATH}
 $py_version ${TOOLS_PATH}/download_models.py
-cd ${DATA_PATH}
-rm -rf ./*
-unset http_proxy
-unset https_proxy
-wget -q https://bj.bcebos.com/paddlehub/fastdeploy/coco_dataset_ci.tgz
-wget -q https://bj.bcebos.com/paddlehub/fastdeploy/imagenet_dataset_ci.tgz
-for i in `ls ./*.tgz`
-   do
-     tar -zxvf $i >/dev/null
-   done
 echo ${CURRENT_DIR}
 cd ${CURRENT_DIR}
 rm -rf result.txt ./infer_result/*
