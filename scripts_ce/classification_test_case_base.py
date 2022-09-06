@@ -22,7 +22,7 @@ class CaseBase(object):
         self.pdmodel = os.path.join(self.util.model_path, "inference.pdmodel")
         self.yaml_file = os.path.join(self.util.model_path, "inference_cls.yaml")
         self.image_file_path = self.util.data_path
-        self.label_file_path = os.path.join(self.util.data_path, "val_list_50.txt")
+        self.label_file_path = os.path.join(self.util.data_path, "val_list.txt")
         self.option = fd.RuntimeOption()
         
 

@@ -6,8 +6,8 @@ class TestYoloRp6Test(object):
     def setup_class(self):
         self.util = FastdeployTest(data_dir_name="coco", model_dir_name="", model_name="yolorp6", csv_path="./infer_result/yolorp6_result.csv")
         self.onnxmodel = os.path.join(self.util.model_path, "yolor-p6-paper-541-1280-1280.onnx")
-        self.image_file_path = os.path.join(self.util.data_path, "val2017_50")
-        self.annotation_file_path = os.path.join(self.util.data_path, "annotations/instances_val2017_50.json")
+        self.image_file_path = os.path.join(self.util.data_path, "val2017")
+        self.annotation_file_path = os.path.join(self.util.data_path, "annotations/instances_val2017.json")
         self.option = fd.RuntimeOption()
         self.model_name = self.util.model_name
         self.csv_save_path = self.util.csv_path

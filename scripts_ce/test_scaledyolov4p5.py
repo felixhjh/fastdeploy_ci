@@ -6,8 +6,8 @@ class TestScaledYOLOv4Test(object):
     def setup_class(self):
         self.util = FastdeployTest(data_dir_name="coco", model_dir_name="", model_name="scaledyolov4p5", csv_path="./infer_result/scaledyolov4p5_result.csv")
         self.onnxmodel = os.path.join(self.util.model_path, "scaled_yolov4-p5-896.onnx")
-        self.image_file_path = os.path.join(self.util.data_path, "val2017_50")
-        self.annotation_file_path = os.path.join(self.util.data_path, "annotations/instances_val2017_50.json")
+        self.image_file_path = os.path.join(self.util.data_path, "val2017")
+        self.annotation_file_path = os.path.join(self.util.data_path, "annotations/instances_val2017.json")
         self.option = fd.RuntimeOption()
         self.model_name = self.util.model_name
         self.csv_save_path = self.util.csv_path
