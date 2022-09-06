@@ -6,7 +6,8 @@ import pytest
 class CaseBase(object):
 
     #temp skip ghostnet_x0_5 mobilenetv2_x0_25 shufflenetv2_x2_0
-    cases = ["ghostnet_x0_5", "mobilenetv2_x0_25", "shufflenetv2_x2_0"]
+    #cases = ["ghostnet_x0_5", "mobilenetv2_x0_25", "shufflenetv2_x2_0"]
+    cases = []
 
     def set_trt_info(self):
         pass
