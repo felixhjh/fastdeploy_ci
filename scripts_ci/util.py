@@ -42,6 +42,7 @@ def check_result(result_data: dict, ground_truth_data: dict, case_name="", model
         assert key in ground_truth_data, "The key:{} in result_data is not in the ground_truth_data".format(key)
         ground_truth_val = ground_truth_data[key]
         diff = abs(result_value - ground_truth_val)
+        print("diff: ", diff)
         if (float(diff) - float(delta)) > 1e-10:
             write2excel(model_name, case_name, result_value, ground_truth_val, diff, csv_path)
         assert (diff <= delta), "The diff of {} between result_data and ground_truth_data is {} is bigger than {}".format(key, diff, delta)
@@ -52,7 +53,7 @@ def write2excel(model_name, case_name, result_value, ground_truth_val, diff, fil
     import csv
     path=file_path
     if not os.path.exists(path):
-        with open(path, "a+") as f:
+        with open(path, "w") as f:
             csv_write = csv.writer(f)
             csv_write.writerow(["model_name", "case_name", "infer_result", "ground_truth", "diff"])
         

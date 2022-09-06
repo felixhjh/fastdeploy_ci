@@ -1,5 +1,5 @@
 #!/bin/bash
-ci_bt=`date '+%Y%m%d%H%M%S'`
+ci_bt=`date '+%s'`
 CURRENT_DIR=$(cd $(dirname $0); pwd)
 export no_proxy=bcebos.com
 export py_version=python
@@ -16,6 +16,7 @@ unset http_proxy
 unset https_proxy
 wget -q https://bj.bcebos.com/paddlehub/fastdeploy/coco_dataset_ci.tgz
 wget -q https://bj.bcebos.com/paddlehub/fastdeploy/imagenet_dataset_ci.tgz
+wget -q https://bj.bcebos.com/paddlehub/fastdeploy/cityscapes.tgz
 for i in `ls ./*.tgz`
    do
      tar -zxvf $i >/dev/null
@@ -42,7 +43,7 @@ ignore="test_efficientnetb0_small.py
        
 bug=0
 
-job_bt=`date '+%Y%m%d%H%M%S'`
+job_bt=`date '+%s'`
 echo "============ failed cases =============" >> result.txt
 for file in ${cases}
 do
@@ -57,7 +58,7 @@ do
         fi
     fi
 done
-job_et=`date '+%Y%m%d%H%M%S'`
+job_et=`date '+%s'`
 
 echo "total bugs: "${bug} >> result.txt
 #if [ ${bug} != 0 ]; then
