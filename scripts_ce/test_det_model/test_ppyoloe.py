@@ -1,3 +1,5 @@
+import sys
+sys.path.append("..")
 from util import *
 import fastdeploy as fd
 import os

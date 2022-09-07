@@ -10,9 +10,11 @@ class FastdeployTest(object):
         py_version: python版本 
         """
         self.py_version = os.environ.get("py_version")
+        self.home = f"{os.environ.get('HOME')}"
         self.data_path = f"{os.environ.get('DATA_PATH')}/{data_dir_name}/"
         self.model_path = f"{os.environ.get('MODEL_PATH')}/{model_dir_name}/"
         self.model_name = model_name
+        self.ground_truth_path = os.path.join(self.home, "ground_truth.yaml")
         self.ground_truth = self.get_ground_truth(model_name)
         self.csv_path = csv_path
         self.check_file_exist(self.csv_path)
@@ -23,7 +25,7 @@ class FastdeployTest(object):
             os.remove(csv_path)
 
     def get_ground_truth(self, model_name):
-        f = open('ground_truth.yaml', 'r', encoding="utf-8")
+        f = open(self.ground_truth_path, 'r', encoding="utf-8")
         data = yaml.load(f, Loader=yaml.FullLoader)
         return data[model_name]
 
@@ -35,17 +37,19 @@ class FastdeployTest(object):
             
 
 def check_result(result_data: dict, ground_truth_data: dict, case_name="", model_name="", delta=0, csv_path="./test.csv"):
+    home = f"{os.environ.get('HOME')}"
     for key, result_value in result_data.items():
         if "average_inference_time" in key:
-            write2speedexcel(model_name, case_name, key, result_value, "./infer_result/model_inference_spped.csv")
+            speed_csv_path = os.path.join(home, "./infer_result/model_inference_spped.csv")
+            write2speedexcel(model_name, case_name, key, result_value, speed_csv_path)
             continue
         assert key in ground_truth_data, "The key:{} in result_data is not in the ground_truth_data".format(key)
         ground_truth_val = ground_truth_data[key]
         print("result_val", result_value)
         diff = abs(result_value - ground_truth_val)
         if float(diff) >= float(delta):
-            #print("casename", case_name)
-            write2excel(model_name, case_name, result_value, ground_truth_val, diff, csv_path)
+            path = os.path.join(home, csv_path)
+            write2excel(model_name, case_name, result_value, ground_truth_val, diff, path)
         assert (diff <= delta), "The diff of {} between result_data and ground_truth_data is {} is bigger than {}".format(key, diff, delta)
     return 0
 
@@ -54,7 +58,7 @@ def write2excel(model_name, case_name, result_value, ground_truth_val, diff, fil
     import csv
     path=file_path
     if not os.path.exists(path):
-        with open(path, "a+") as f:
+        with open(path, "w+") as f:
             csv_write = csv.writer(f)
             csv_write.writerow(["model_name", "case_name", "infer_result", "ground_truth", "diff"])
         
@@ -67,7 +71,7 @@ def write2speedexcel(model_name, case_name, speed_case_name, speed_value, file_p
     import csv
     path=file_path
     if not os.path.exists(path):
-        with open(path, "a+") as f:
+        with open(path, "w+") as f:
             csv_write = csv.writer(f)
             csv_write.writerow(["model_name", "case_name", "speed_case_name", "speed_value"])
     with open(path, "a+") as f:
