@@ -8,7 +8,7 @@ import pytest
 class CaseBase(object):
 
     #temp skip ghostnet_x0_5 mobilenetv2_x0_25 shufflenetv2_x2_0
-    cases = ["ghostnet_x0_5", "mobilenetv2_x0_25", "shufflenetv2_x2_0"]
+    cpu_skip_cases = ["efficientnetb7", "inceptionv3", "pphgnet_tiny_ssld", "resnet50_vd", "pphgnet_base_ssld"]
 
     def set_trt_info(self):
         pass
@@ -33,11 +33,13 @@ class CaseBase(object):
         result = {}
         tok1_result = fd.vision.evaluation.eval_classify(model, self.image_file_path, self.label_file_path, topk=1)
         result.update(tok1_result)
-        tok5_result = fd.vision.evaluation.eval_classify(model, self.image_file_path, self.label_file_path, topk=5)
-        result.update(tok5_result)
+        #tok5_result = fd.vision.evaluation.eval_classify(model, self.image_file_path, self.label_file_path, topk=5)
+        #result.update(tok5_result)
         return result
 
     def test_ort_cpu(self):
+        if self.model_name in CaseBase.cpu_skip_cases:
+            return
         self.option.use_ort_backend()
         self.option.use_cpu()
         result = self.run_predict()
@@ -50,14 +52,14 @@ class CaseBase(object):
         check_result(result, self.util.ground_truth, "test_ort_gpu", self.model_name, self.diff,self.csv_save_path)
 
     def test_paddle_cpu_backend(self):
+        if self.model_name in CaseBase.cpu_skip_cases:
+            return
         self.option.use_paddle_backend()
         self.option.use_cpu()
         result = self.run_predict()
         check_result(result, self.util.ground_truth, "test_paddle_cpu_backend", self.model_name, self.diff, self.csv_save_path)
 
     def test_paddle_gpu_backend(self):
-        if self.model_name in CaseBase.cases:
-            return
         self.option.use_paddle_backend()
         self.option.use_gpu(0)
         result = self.run_predict()
