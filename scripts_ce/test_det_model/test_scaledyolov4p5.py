@@ -25,7 +25,7 @@ class TestScaledYOLOv4Test(object):
         model = fd.vision.detection.ScaledYOLOv4(self.onnxmodel, "None", self.option)
         model.size = [896, 896]
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path, 0.001, 0.65)
-        check_result(result, self.util.ground_truth, case_name="test_ort_cpu", model_name=self.model_name, self.diff, csv_path=self.csv_save_path)
+        check_result(result, self.util.ground_truth, case_name="test_ort_cpu", model_name=self.model_name, delta=self.diff, csv_path=self.csv_save_path)
 
     def test_ort_gpu(self):
         self.option.use_ort_backend()
@@ -33,7 +33,7 @@ class TestScaledYOLOv4Test(object):
         model = fd.vision.detection.ScaledYOLOv4(self.onnxmodel, "None", self.option)
         model.size = [896, 896]
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path, 0.001, 0.65)
-        check_result(result, self.util.ground_truth, case_name="test_ort_gpu", model_name=self.model_name, self.diff, csv_path=self.csv_save_path)
+        check_result(result, self.util.ground_truth, case_name="test_ort_gpu", model_name=self.model_name, delta=self.diff, csv_path=self.csv_save_path)
 
 
     def test_trt(self):
@@ -43,5 +43,5 @@ class TestScaledYOLOv4Test(object):
         model = fd.vision.detection.ScaledYOLOv4(self.onnxmodel, "None", self.option)
         model.size = [896, 896]
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path, 0.001, 0.65)
-        check_result(result, self.util.ground_truth, case_name="test_trt", model_name=self.model_name, self.diff, csv_path=self.csv_save_path)
+        check_result(result, self.util.ground_truth, case_name="test_trt", model_name=self.model_name, delta=self.diff, csv_path=self.csv_save_path)
 

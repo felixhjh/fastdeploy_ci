@@ -25,14 +25,14 @@ class TestPPYoloeTest(object):
         self.option.use_cpu()
         model = fd.vision.detection.PPYOLOE(self.pdmodel, self.pdiparams, self.yaml_file, self.option)
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path)
-        check_result(result, self.util.ground_truth, case_name="test_ort_cpu", model_name=self.model_name, self.diff, csv_path=self.csv_save_path)
+        check_result(result, self.util.ground_truth, case_name="test_ort_cpu", model_name=self.model_name, delta=self.diff, csv_path=self.csv_save_path)
 
     def test_ort_gpu(self):
         self.option.use_ort_backend()
         self.option.use_gpu(0)
         model = fd.vision.detection.PPYOLOE(self.pdmodel, self.pdiparams, self.yaml_file, self.option)
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path)
-        check_result(result, self.util.ground_truth, case_name="test_ort_gpu", model_name=self.model_name, self.diff, csv_path=self.csv_save_path)
+        check_result(result, self.util.ground_truth, case_name="test_ort_gpu", model_name=self.model_name, delta=self.diff, csv_path=self.csv_save_path)
 
 
     def test_trt(self):
@@ -42,5 +42,5 @@ class TestPPYoloeTest(object):
         self.option.set_trt_input_shape("scale_factor", [1, 2])
         model = fd.vision.detection.PPYOLOE(self.pdmodel, self.pdiparams, self.yaml_file, self.option)
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path)
-        check_result(result, self.util.ground_truth, case_name="test_trt", model_name=self.model_name, self.diff, csv_path=self.csv_save_path)
+        check_result(result, self.util.ground_truth, case_name="test_trt", model_name=self.model_name, delta=self.diff, csv_path=self.csv_save_path)
 
