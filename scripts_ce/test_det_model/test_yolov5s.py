@@ -13,6 +13,7 @@ class TestYolov5Test(object):
         self.option = fd.RuntimeOption()
         self.model_name = self.util.model_name
         self.csv_save_path = self.util.csv_path
+        self.diff = 0.001
         
     def teardown_method(self):
         #print_log(["stderr.log", "stdout.log"], iden="after predict")
@@ -23,14 +24,14 @@ class TestYolov5Test(object):
         self.option.use_cpu()
         model = fd.vision.detection.YOLOv5(self.onnxmodel, "None", self.option)
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path, 0.001, 0.65)
-        check_result(result, self.util.ground_truth, case_name="test_ort_cpu", model_name=self.model_name, delta=0, csv_path=self.csv_save_path)
+        check_result(result, self.util.ground_truth, case_name="test_ort_cpu", model_name=self.model_name, self.diff, csv_path=self.csv_save_path)
 
     def test_ort_gpu(self):
         self.option.use_ort_backend()
         self.option.use_gpu(0)
         model = fd.vision.detection.YOLOv5(self.onnxmodel, "None", self.option)
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path, 0.001, 0.65)
-        check_result(result, self.util.ground_truth, case_name="test_ort_gpu", model_name=self.model_name, delta=0, csv_path=self.csv_save_path)
+        check_result(result, self.util.ground_truth, case_name="test_ort_gpu", model_name=self.model_name, self.diff, csv_path=self.csv_save_path)
 
 
     def test_trt(self):
@@ -39,5 +40,5 @@ class TestYolov5Test(object):
         self.option.set_trt_input_shape("images", [1, 3, 320, 320], [1, 3, 640, 640], [1, 3, 1280, 1280])
         model = fd.vision.detection.YOLOv5(self.onnxmodel, "None", self.option)
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path, 0.001, 0.65)
-        check_result(result, self.util.ground_truth, case_name="test_trt", model_name=self.model_name, delta=0, csv_path=self.csv_save_path)
+        check_result(result, self.util.ground_truth, case_name="test_trt", model_name=self.model_name, self.diff, csv_path=self.csv_save_path)
 
