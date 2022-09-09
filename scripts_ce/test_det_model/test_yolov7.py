@@ -13,7 +13,7 @@ class TestYolov7Test(object):
         self.option = fd.RuntimeOption()
         self.model_name = self.util.model_name
         self.csv_save_path = self.util.csv_path
-        self.diff = 0.001
+        self.diff = 0.007
         
     def teardown_method(self):
         pass
