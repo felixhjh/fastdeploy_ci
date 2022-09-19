@@ -4,6 +4,8 @@ CURRENT_DIR=$(cd $(dirname $0); pwd)
 PLATFORM=$1
 DEVICE=$2
 VERSION=$3
+py_version=$(python -V | awk '{print $2}' | awk -F. '{print $2}')
+echo "py_version:" $py_version
 if [ "$DEVICE" = "gpu" ];then
        PY_FASTDEPLOY_PACKAGE=fastdeploy-$DEVICE-python
        CPP_FASTDEPLOY_PACKAGE=fastdeploy-$PLATFORM-$DEVICE-$VERSION
@@ -20,21 +22,20 @@ WIN_10_X64_GPU_CASE=('ort' 'paddle' 'trt')
 WIN_10_X64_CPU_CASE=('ort' 'paddle')
 MACOS_INTEL_CPU_CASE=('ort' 'paddle')
 MACOS_ARM64_CPU_CASE=('default')
-#git clone https://github.com/PaddlePaddle/FastDeploy.git -b develop
-#git clone https://github.com/felixhjh/FastDeploy.git -b publish_task
-#wget https://bj.bcebos.com/paddlehub/fastdeploy/ppyoloe_crn_l_300e_coco.tgz
-#wget https://gitee.com/paddlepaddle/PaddleDetection/raw/release/2.4/demo/000000014439.jpg
-#tar xvf ppyoloe_crn_l_300e_coco.tgz
+git clone https://github.com/PaddlePaddle/FastDeploy.git -b develop
+wget https://bj.bcebos.com/paddlehub/fastdeploy/ppyoloe_crn_l_300e_coco.tgz
+wget https://gitee.com/paddlepaddle/PaddleDetection/raw/release/2.4/demo/000000014439.jpg
+tar xvf ppyoloe_crn_l_300e_coco.tgz
 IMAGE_PATH=$CURRENT_DIR/000000014439.jpg
 MODEL_PATH=$CURRENT_DIR/ppyoloe_crn_l_300e_coco
 GROUND_TRUTH_PATH=$CURRENT_DIR/groud_truth_result.txt
 COMPARE_SHELL=$CURRENT_DIR/compare_with_gt.py
 
-#pip freeze | grep fastdeploy | xargs pip uninstall -y
+pip freeze | grep fastdeploy | xargs pip uninstall -y
 
-cd FastDeploy/examples/vision/detection/paddledetection/python
+cd  ${CURRENT_DIR}/FastDeploy/tests/publish_task_example/
 
-#python -m pip install $PY_FASTDEPLOY_PACKAGE -f https://www.paddlepaddle.org.cn/whl/fastdeploy.html
+python -m pip install $PY_FASTDEPLOY_PACKAGE -f https://www.paddlepaddle.org.cn/whl/fastdeploy_nightly_build.html
 
 RUN_CASE=()
 if [ "$DEVICE" = "gpu" ] && [ "$PLATFORM" = "linux-x64" ];then
@@ -57,8 +58,7 @@ case_number=${#RUN_CASE[@]}
 for((i=0;i<case_number;i+=1))
 do
        backend=${RUN_CASE[i]}
-       echo ${RUN_CASE[i]}
-       echo $backend
+       echo "Backend:" $backend
        if [ "$backend" != "trt" ];then
                python infer_ppyoloe.py --model_dir $MODEL_PATH --image $IMAGE_PATH --device cpu --backend $backend >> py_cpu_result.txt
                python $COMPARE_SHELL --gt_path $GROUND_TRUTH_PATH --result_path py_cpu_result.txt --platform $PLATFORM
@@ -74,13 +74,12 @@ do
                fi
        fi
 done
-#wget https://bj.bcebos.com/fastdeploy/release/cpp/$CPP_FASTDEPLOY_PACKAGE.tgz
 
-#tar xvf $CPP_FASTDEPLOY_PACKAGE.tgz
+wget  https://fastdeploy.bj.bcebos.com/dev/cpp/$CPP_FASTDEPLOY_PACKAGE.tgz
 
-cd $CPP_FASTDEPLOY_PACKAGE/examples/vision/detection/paddledetection/cpp
+tar xvf $CPP_FASTDEPLOY_PACKAGE.tgz
 mkdir build && cd build
-cmake .. -DFASTDEPLOY_INSTALL_DIR=${PWD}/../../../../../../../$CPP_FASTDEPLOY_PACKAGE
+cmake .. -DFASTDEPLOY_INSTALL_DIR=${PWD}/../$CPP_FASTDEPLOY_PACKAGE
 make -j
 
 for((i=0;i<case_number;i+=1))
