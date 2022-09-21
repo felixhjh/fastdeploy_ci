@@ -53,7 +53,7 @@ def write2excel(model_name, case_name, result_value, ground_truth_val, diff, fil
     import csv
     path=file_path
     if not os.path.exists(path):
-        with open(path, "w") as f:
+        with open(path, "w+") as f:
             csv_write = csv.writer(f)
             csv_write.writerow(["model_name", "case_name", "infer_result", "ground_truth", "diff"])
         
@@ -66,7 +66,7 @@ def write2speedexcel(model_name, case_name, speed_case_name, speed_value, file_p
     import csv
     path=file_path
     if not os.path.exists(path):
-        with open(path, "a+") as f:
+        with open(path, "w+") as f:
             csv_write = csv.writer(f)
             csv_write.writerow(["model_name", "case_name", "speed_case_name", "speed_value"])
     with open(path, "a+") as f:
