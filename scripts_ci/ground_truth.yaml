@@ -75,8 +75,8 @@ ppyoloe_crn_l_300e:
   bbox_mmap: 0.6295868205846984
 fcn_hrnet_w18:
   miou: 0.5768594280101427
-deeplabv3_resnet50:
-  miou: 0.5778469067991646
+deeplabv3_resnet101:
+  miou: 0.5939792494351943
 pp_liteseg:
   miou: 0.6055583852182878
 unet_cityscapes:
