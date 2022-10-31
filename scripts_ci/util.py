@@ -43,7 +43,7 @@ def check_result(result_data: dict, ground_truth_data: dict, case_name="", model
         ground_truth_val = ground_truth_data[key]
         diff = abs(result_value - ground_truth_val)
         print("diff: ", diff)
-        if (float(diff) - float(delta)) > 1e-10:
+        if (float(diff) - float(delta)) > 1e-06:
             write2excel(model_name, case_name, result_value, ground_truth_val, diff, csv_path)
         assert (diff <= delta), "The diff of {} between result_data and ground_truth_data is {} is bigger than {}".format(key, diff, delta)
     return 0
