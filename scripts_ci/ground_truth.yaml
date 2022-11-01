@@ -73,6 +73,8 @@ yoloxs:
   bbox_mmap: 0.46895111467671824
 ppyoloe_crn_l_300e:
   bbox_mmap: 0.6295868205846984
+yolov3_darknet53_270e_coco:
+  bbox_mmap: 0.4950715497380956
 fcn_hrnet_w18:
   miou: 0.5768594280101427
 deeplabv3_resnet101:
