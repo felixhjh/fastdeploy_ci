@@ -4,7 +4,7 @@ import os
 
 class TestYOLOv3Test(object):
     def setup_class(self):
-        self.util = FastdeployTest(data_dir_name="coco", model_dir_name="yolov3_darknet53_270e_coco", model_name="yolov3_darknet53_270e_coco", csv_path="./infer_result/ppyoloe_result.csv")
+        self.util = FastdeployTest(data_dir_name="coco", model_dir_name="yolov3_darknet53_270e_coco", model_name="yolov3_darknet53_270e_coco", csv_path="./infer_result/yolov3_result.csv")
         self.pdiparams = os.path.join(self.util.model_path, "model.pdiparams")
         self.pdmodel = os.path.join(self.util.model_path, "model.pdmodel")
         self.yaml_file = os.path.join(self.util.model_path, "infer_cfg.yml")
