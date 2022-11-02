@@ -17,12 +17,19 @@ class TestPPYoloeTest(object):
     def teardown_method(self):
         pass
     
-    def test_ort_cpu(self):
-        self.option.use_ort_backend()
+    def test_openvino_cpu(self):
+        self.option.use_openvino_backend()
         self.option.use_cpu()
         model = fd.vision.detection.PPYOLOE(self.pdmodel, self.pdiparams, self.yaml_file, self.option)
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path)
-        check_result(result, self.util.ground_truth, case_name="test_ort_cpu", model_name=self.model_name, delta=0, csv_path=self.csv_save_path)
+        check_result(result, self.util.ground_truth, case_name="test_openvino_cpu", model_name=self.model_name, delta=0, csv_path=self.csv_save_path)
+
+    def test_paddle_gpu(self):
+        self.option.use_paddle_backend()
+        self.option.use_gpu()
+        model = fd.vision.detection.PPYOLOE(self.pdmodel, self.pdiparams, self.yaml_file, self.option)
+        result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path)
+        check_result(result, self.util.ground_truth, case_name="test_paddle_gpu", model_name=self.model_name, delta=0, csv_path=self.csv_save_path)
 
     def test_ort_gpu(self):
         self.option.use_ort_backend()
@@ -35,12 +42,6 @@ class TestPPYoloeTest(object):
     def test_trt(self):
         self.option.use_trt_backend()
         self.option.use_gpu(0)
-        #self.option.trt_max_workspace_size = 107374182400
-        self.option.set_trt_input_shape("image", [1, 3, 640, 640])
-        self.option.set_trt_input_shape("scale_factor", [1, 2])
-        #self.option.trt_min_shape = {"images": [1, 3, 640, 640]}
-        #self.option.trt_opt_shape = {"images": [4, 3, 640, 640]}
-        #self.option.trt_max_shape = {"images": [8, 3, 640, 640]}
         model = fd.vision.detection.PPYOLOE(self.pdmodel, self.pdiparams, self.yaml_file, self.option)
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path)
         check_result(result, self.util.ground_truth, case_name="test_trt", model_name=self.model_name, delta=0, csv_path=self.csv_save_path)

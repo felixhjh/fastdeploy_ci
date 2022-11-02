@@ -33,3 +33,5 @@ https://bj.bcebos.com/paddlehub/fastdeploy/PP_HumanSegV1_Server_infer.tgz
 https://bj.bcebos.com/paddlehub/fastdeploy/FCN_HRNet_W18_cityscapes_without_argmax_infer.tgz
 https://bj.bcebos.com/paddlehub/fastdeploy/Deeplabv3_ResNet101_OS8_cityscapes_without_argmax_infer.tgz
 https://bj.bcebos.com/paddlehub/fastdeploy/yolov3_darknet53_270e_coco.tgz
+https://bj.bcebos.com/paddlehub/fastdeploy/yolox_s_300e_coco.tgz
+https://bj.bcebos.com/paddlehub/fastdeploy/picodet_l_320_coco_lcnet.tgz
