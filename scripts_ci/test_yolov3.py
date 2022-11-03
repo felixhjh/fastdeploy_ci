@@ -17,12 +17,19 @@ class TestYOLOv3Test(object):
     def teardown_method(self):
         pass
     
-    def test_ort_cpu(self):
-        self.option.use_ort_backend()
+    def test_paddle_gpu(self):
+        self.option.use_paddle_backend()
+        self.option.use_gpu()
+        model = fd.vision.detection.YOLOv3(self.pdmodel, self.pdiparams, self.yaml_file, self.option)
+        result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path)
+        check_result(result, self.util.ground_truth, case_name="test_paddle_gpu", model_name=self.model_name, delta=0, csv_path=self.csv_save_path)
+
+    def test_openvino_cpu(self):
+        self.option.use_openvino_backend()
         self.option.use_cpu()
         model = fd.vision.detection.YOLOv3(self.pdmodel, self.pdiparams, self.yaml_file, self.option)
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path)
-        check_result(result, self.util.ground_truth, case_name="test_ort_cpu", model_name=self.model_name, delta=0, csv_path=self.csv_save_path)
+        check_result(result, self.util.ground_truth, case_name="test_openvino_cpu", model_name=self.model_name, delta=0.01, csv_path=self.csv_save_path)
 
     def test_ort_gpu(self):
         self.option.use_ort_backend()
