@@ -35,3 +35,4 @@ https://bj.bcebos.com/paddlehub/fastdeploy/Deeplabv3_ResNet101_OS8_cityscapes_wi
 https://bj.bcebos.com/paddlehub/fastdeploy/yolov3_darknet53_270e_coco.tgz
 https://bj.bcebos.com/paddlehub/fastdeploy/yolox_s_300e_coco.tgz
 https://bj.bcebos.com/paddlehub/fastdeploy/picodet_l_320_coco_lcnet.tgz
+https://bj.bcebos.com/paddlehub/fastdeploy/PPOCRv3_models.tar

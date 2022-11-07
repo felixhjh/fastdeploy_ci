@@ -13,7 +13,12 @@ class FastdeployTest(object):
         self.data_path = f"{os.environ.get('DATA_PATH')}/{data_dir_name}/"
         self.model_path = f"{os.environ.get('MODEL_PATH')}/{model_dir_name}/"
         self.model_name = model_name
-        self.ground_truth = self.get_ground_truth(model_name)
+        
+        if model_name != "PPOCRv3":
+                self.ground_truth = self.get_ground_truth(model_name)
+        else:
+            self.ground_truth = None
+        
         self.csv_path = csv_path
         self.check_file_exist(self.csv_path)
         
@@ -48,7 +53,7 @@ def check_result(result_data: dict, ground_truth_data: dict, case_name="", model
     return 0
 
 
-def ppocr_diff_check(ocr_model, image_file_path, txt_path ,model_name="", case_name="", csv_path='./test.csv'):
+def ppocr_diff_check(ocr_model, image_file_path, local_result_path ,model_name="", case_name="", csv_path='./test.csv'):
     
     # Prepare Images
     img_dir = image_file_path
@@ -63,7 +68,7 @@ def ppocr_diff_check(ocr_model, image_file_path, txt_path ,model_name="", case_n
 
     # Read local result from txt file
     local_result=[]
-    with open(txt_path,'r') as f:
+    with open(local_result_path,'r') as f:
         for line in f:
             local_result.append(list(map(float,line.split(','))))
 
@@ -80,7 +85,7 @@ def ppocr_diff_check(ocr_model, image_file_path, txt_path ,model_name="", case_n
 
     # Begin to Diff Compare
     total_num_res = len(local_result)*11
-    total_diff_num = 0
+    total_diff_num = 0 
 
     print("==== Begin to check OCR diff ====")
     for list_local, list_fd in zip (local_result, fd_result):
@@ -103,7 +108,7 @@ def ppocr_diff_check(ocr_model, image_file_path, txt_path ,model_name="", case_n
                 assert(abs(diff) != 1),"Diff exist in cls label result, where is {} - {} .".format(list_local,list_fd)
             else:
                 diff = round(list_local[i],6) - round(list_fd[i],6)
-                write2excel(model_name, case_name, list_fd[i], list_local[i], diff, csv_path)s
+                write2excel(model_name, case_name, list_fd[i], list_local[i], diff, csv_path)
                 assert(abs(diff) < 0.00001),"Diff exist in cls score result, where is {} - {} .".format(list_local,list_fd)
     print("==== Finish PPOCR diff check ==== ")
                 
