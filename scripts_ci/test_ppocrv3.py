@@ -6,7 +6,7 @@ class TestPPOCRv3Test(object):
 
         ####
         self.util = FastdeployTest(data_dir_name="ICDAR2017", 
-            model_dir_name="PPOCRv3_model", 
+            model_dir_name="PPOCRv3_models", 
             model_name="PPOCRv3",
             csv_path="./infer_result/PPOCRv3_result.csv")
 
@@ -25,7 +25,7 @@ class TestPPOCRv3Test(object):
         self.rec_pdmodel = os.path.join(self.rec_model_path, "inference.pdmodel")
         self.rec_label_file = os.path.join(self.util.model_path, "ppocr_keys_v1.txt")
 
-        self.local_result_path = "./infer_result/PPOCRv3_ICDAR2017_10.txt"
+        self.local_result_path = self.util.ground_truth
         self.image_file_path = os.path.join(self.util.data_path, "ICDAR2017_10")
         self.option = fd.RuntimeOption()
         self.model_name = self.util.model_name

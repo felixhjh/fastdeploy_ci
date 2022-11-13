@@ -1,5 +1,6 @@
 import yaml
 import os
+import requests
 
 class FastdeployTest(object):
     def __init__(self, data_dir_name: str, model_dir_name: str, model_name: str, csv_path="./test.csv"):
@@ -13,12 +14,7 @@ class FastdeployTest(object):
         self.data_path = f"{os.environ.get('DATA_PATH')}/{data_dir_name}/"
         self.model_path = f"{os.environ.get('MODEL_PATH')}/{model_dir_name}/"
         self.model_name = model_name
-        
-        if model_name != "PPOCRv3":
-                self.ground_truth = self.get_ground_truth(model_name)
-        else:
-            self.ground_truth = None
-        
+        self.ground_truth = self.get_ground_truth(model_name)
         self.csv_path = csv_path
         self.check_file_exist(self.csv_path)
         
@@ -28,9 +24,14 @@ class FastdeployTest(object):
             os.remove(csv_path)
 
     def get_ground_truth(self, model_name):
-        f = open('ground_truth.yaml', 'r', encoding="utf-8")
-        data = yaml.load(f, Loader=yaml.FullLoader)
-        return data[model_name]
+        if model_name == "PPOCRv3":
+            ground_truth_path = "./"
+            ground_truth_path = download("https://bj.bcebos.com/paddlehub/fastdeploy/PPOCRv3_ICDAR2017_10.txt", ground_truth_path)
+            return ground_truth_path 
+        else:
+            f = open('ground_truth.yaml', 'r', encoding="utf-8")
+            data = yaml.load(f, Loader=yaml.FullLoader)
+            return data[model_name]
 
     @staticmethod
     def redirect_err_out(err="stderr.log", out="stdout.log"):
@@ -150,3 +151,12 @@ def print_log(file_list, iden=""):
         else:
             print(f"{file} not exist")
         print("======================================================")
+
+
+def download(url,save_path):
+    req = requests.get(url)
+    save_path = save_path + url.split('/')[-1]
+    
+    with open(save_path, 'wb') as f:
+        f.write(req.content)
+    return save_path 
