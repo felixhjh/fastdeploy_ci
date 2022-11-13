@@ -17,13 +17,6 @@ class TestPPYOLOXTest(object):
     def teardown_method(self):
         pass
     
-    def test_openvino_cpu(self):
-        self.option.use_openvino_backend()
-        self.option.use_cpu()
-        model = fd.vision.detection.PaddleYOLOX(self.pdmodel, self.pdiparams, self.yaml_file, self.option)
-        result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path)
-        check_result(result, self.util.ground_truth, case_name="test_openvino_cpu", model_name=self.model_name, delta=1e-4, csv_path=self.csv_save_path)
-
     def test_paddle_gpu(self):
         self.option.use_paddle_backend()
         self.option.use_gpu()
