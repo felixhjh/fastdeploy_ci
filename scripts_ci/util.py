@@ -3,7 +3,7 @@ import os
 import requests
 
 class FastdeployTest(object):
-    def __init__(self, data_dir_name: str, model_dir_name: str, model_name: str, url: str ,csv_path="./test.csv"):
+    def __init__(self, data_dir_name: str, model_dir_name: str, model_name: str, csv_path="./test.csv"):
         """
         需设置环境变量
         MODEL_PATH: 模型根目录
@@ -24,16 +24,13 @@ class FastdeployTest(object):
             os.remove(csv_path)
 
     def get_ground_truth(self, model_name):
-
         f = open('ground_truth.yaml', 'r', encoding="utf-8")
         data = yaml.load(f, Loader=yaml.FullLoader)
         return data[model_name]
 
     def get_ground_truth_from_url(self, url):
-        
         ground_truth_path = "./"
         ground_truth_path = download(url, ground_truth_path)
-        
         return ground_truth_path 
         
     @staticmethod
