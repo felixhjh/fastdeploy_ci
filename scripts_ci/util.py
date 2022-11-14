@@ -14,7 +14,7 @@ class FastdeployTest(object):
         self.data_path = f"{os.environ.get('DATA_PATH')}/{data_dir_name}/"
         self.model_path = f"{os.environ.get('MODEL_PATH')}/{model_dir_name}/"
         self.model_name = model_name
-        self.ground_truth = self.get_ground_truth(model_name)
+        self.ground_truth = self.get_ground_truth_from_url(model_name)
         self.csv_path = csv_path
         self.check_file_exist(self.csv_path)
         
@@ -24,15 +24,19 @@ class FastdeployTest(object):
             os.remove(csv_path)
 
     def get_ground_truth(self, model_name):
+
+        f = open('ground_truth.yaml', 'r', encoding="utf-8")
+        data = yaml.load(f, Loader=yaml.FullLoader)
+        return data[model_name]
+
+    def get_ground_truth_from_url(self, model_name):
+
         if model_name == "PPOCRv3":
             ground_truth_path = "./"
             ground_truth_path = download("https://bj.bcebos.com/paddlehub/fastdeploy/PPOCRv3_ICDAR2017_10.txt", ground_truth_path)
-            return ground_truth_path 
-        else:
-            f = open('ground_truth.yaml', 'r', encoding="utf-8")
-            data = yaml.load(f, Loader=yaml.FullLoader)
-            return data[model_name]
-
+        
+        return ground_truth_path 
+        
     @staticmethod
     def redirect_err_out(err="stderr.log", out="stdout.log"):
         import sys
