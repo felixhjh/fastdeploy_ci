@@ -1,13 +1,27 @@
 from util import *
 import fastdeploy as fd
 import os
+
+
+class FastdeployTestPPOCR(FastdeployTest):
+    def __init__(self, data_dir_name: str, model_dir_name: str, model_name: str, url: str ,csv_path="./test.csv"):
+        self.py_version = os.environ.get("py_version")
+        self.data_path = f"{os.environ.get('DATA_PATH')}/{data_dir_name}/"
+        self.model_path = f"{os.environ.get('MODEL_PATH')}/{model_dir_name}/"
+        self.model_name = model_name
+        self.csv_path = csv_path
+        self.check_file_exist(self.csv_path)
+        self.ground_truth = self.get_ground_truth_from_url(url)
+
+
 class TestPPOCRv3Test(object):
+    
     def setup_class(self):
 
-        ####
-        self.util = FastdeployTest(data_dir_name="ICDAR2017", 
+        self.util = FastdeployTestPPOCR(data_dir_name="ICDAR2017", 
             model_dir_name="PPOCRv3_models", 
             model_name="PPOCRv3",
+            url="https://bj.bcebos.com/paddlehub/fastdeploy/PPOCRv3_ICDAR2017_10.txt",
             csv_path="./infer_result/PPOCRv3_result.csv")
 
         # Det Model

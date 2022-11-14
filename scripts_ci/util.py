@@ -3,7 +3,7 @@ import os
 import requests
 
 class FastdeployTest(object):
-    def __init__(self, data_dir_name: str, model_dir_name: str, model_name: str, csv_path="./test.csv"):
+    def __init__(self, data_dir_name: str, model_dir_name: str, model_name: str, url: str ,csv_path="./test.csv"):
         """
         需设置环境变量
         MODEL_PATH: 模型根目录
@@ -14,7 +14,7 @@ class FastdeployTest(object):
         self.data_path = f"{os.environ.get('DATA_PATH')}/{data_dir_name}/"
         self.model_path = f"{os.environ.get('MODEL_PATH')}/{model_dir_name}/"
         self.model_name = model_name
-        self.ground_truth = self.get_ground_truth_from_url(model_name)
+        self.ground_truth = self.get_ground_truth(model_name)
         self.csv_path = csv_path
         self.check_file_exist(self.csv_path)
         
@@ -29,11 +29,10 @@ class FastdeployTest(object):
         data = yaml.load(f, Loader=yaml.FullLoader)
         return data[model_name]
 
-    def get_ground_truth_from_url(self, model_name):
-
-        if model_name == "PPOCRv3":
-            ground_truth_path = "./"
-            ground_truth_path = download("https://bj.bcebos.com/paddlehub/fastdeploy/PPOCRv3_ICDAR2017_10.txt", ground_truth_path)
+    def get_ground_truth_from_url(self, url):
+        
+        ground_truth_path = "./"
+        ground_truth_path = download(url, ground_truth_path)
         
         return ground_truth_path 
         
