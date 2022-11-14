@@ -143,10 +143,12 @@ def download_and_decompress(url, path='.', rename=None):
 def unset_env(key):
     del os.environ[key]
 
-with open("models_url.txt", "r") as f:
-    if 'https_proxy' in os.environ or 'http_proxy' in os.environ:
-        unset_env("https_proxy")
-        unset_env("http_proxy")
-    for line in f.readlines():
-        url = line.strip()
-        dst_dir = download_and_decompress(url, "../models")
+if __name__ == '__main__':
+    
+    with open("models_url.txt", "r") as f:
+        if 'https_proxy' in os.environ or 'http_proxy' in os.environ:
+            unset_env("https_proxy")
+            unset_env("http_proxy")
+        for line in f.readlines():
+            url = line.strip()
+            dst_dir = download_and_decompress(url, "../models")

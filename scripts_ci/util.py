@@ -1,6 +1,8 @@
 import yaml
 import os
-import requests
+import sys
+sys.path.append("../")
+from tools.download_models import download
 
 class FastdeployTest(object):
     def __init__(self, data_dir_name: str, model_dir_name: str, model_name: str, csv_path="./test.csv"):
@@ -151,12 +153,3 @@ def print_log(file_list, iden=""):
         else:
             print(f"{file} not exist")
         print("======================================================")
-
-
-def download(url,save_path):
-    req = requests.get(url)
-    save_path = save_path + url.split('/')[-1]
-    
-    with open(save_path, 'wb') as f:
-        f.write(req.content)
-    return save_path 
