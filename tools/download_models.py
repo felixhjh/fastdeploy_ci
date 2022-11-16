@@ -144,7 +144,6 @@ def unset_env(key):
     del os.environ[key]
 
 if __name__ == '__main__':
-    
     with open("models_url.txt", "r") as f:
         if 'https_proxy' in os.environ or 'http_proxy' in os.environ:
             unset_env("https_proxy")
