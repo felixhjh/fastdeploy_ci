@@ -14,18 +14,18 @@ class FastdeployTestPPOCR(FastdeployTest):
         self.ground_truth = self.get_ground_truth_from_url(url)
 
 
-class TestPPOCRv3Test(object):
+class TestPPOCRv2Test(object):
     
     def setup_class(self):
 
         self.util = FastdeployTestPPOCR(data_dir_name="ICDAR2017_10", 
-            model_dir_name="PPOCRv3_models", 
-            model_name="PPOCRv3",
-            url="https://bj.bcebos.com/paddlehub/fastdeploy/PPOCRv3_ICDAR2017_10_res.txt",
-            csv_path="./infer_result/PPOCRv3_result.csv")
+            model_dir_name="PPOCRv2_models", 
+            model_name="PPOCRv2",
+            url="https://bj.bcebos.com/paddlehub/fastdeploy/PPOCRv2_ICDAR2017_10.txt",
+            csv_path="./infer_result/PPOCRv2_result.csv")
 
         # Det Model
-        self.det_model_path = os.path.join(self.util.model_path, "ch_PP-OCRv3_det_infer")  
+        self.det_model_path = os.path.join(self.util.model_path, "ch_PP-OCRv2_det_infer")  
         self.det_pdiparams = os.path.join(self.det_model_path, "inference.pdiparams")
         self.det_pdmodel = os.path.join(self.det_model_path, "inference.pdmodel")
         # Cls Model
@@ -34,7 +34,7 @@ class TestPPOCRv3Test(object):
         self.cls_pdmodel = os.path.join(self.cls_model_path, "inference.pdmodel")
 
         # Rec Model
-        self.rec_model_path = os.path.join(self.util.model_path, "ch_PP-OCRv3_rec_infer") 
+        self.rec_model_path = os.path.join(self.util.model_path, "ch_PP-OCRv2_rec_infer") 
         self.rec_pdiparams = os.path.join(self.rec_model_path, "inference.pdiparams")
         self.rec_pdmodel = os.path.join(self.rec_model_path, "inference.pdmodel")
         self.rec_label_file = os.path.join(self.util.model_path, "ppocr_keys_v1.txt")
@@ -59,7 +59,7 @@ class TestPPOCRv3Test(object):
             self.rec_pdiparams,
             self.rec_label_file,
             runtime_option=self.option)
-        model = fd.vision.ocr.PPOCRv3(det_model=det_model, cls_model=cls_model, rec_model=rec_model)
+        model = fd.vision.ocr.PPOCRv2(det_model=det_model, cls_model=cls_model, rec_model=rec_model)
         ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_paddle_gpu", csv_path=self.csv_save_path)
         
 
@@ -74,7 +74,7 @@ class TestPPOCRv3Test(object):
             self.rec_pdiparams,
             self.rec_label_file,
             runtime_option=self.option)
-        model = fd.vision.ocr.PPOCRv3(det_model=det_model, cls_model=cls_model, rec_model=rec_model)
+        model = fd.vision.ocr.PPOCRv2(det_model=det_model, cls_model=cls_model, rec_model=rec_model)
         ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_openvino_cpu", csv_path=self.csv_save_path)
 
 
@@ -89,7 +89,7 @@ class TestPPOCRv3Test(object):
             self.rec_pdiparams,
             self.rec_label_file,
             runtime_option=self.option)
-        model = fd.vision.ocr.PPOCRv3(det_model=det_model, cls_model=cls_model, rec_model=rec_model)
+        model = fd.vision.ocr.PPOCRv2(det_model=det_model, cls_model=cls_model, rec_model=rec_model)
         ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_ort_gpu", csv_path=self.csv_save_path)
 
         
