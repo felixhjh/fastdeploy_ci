@@ -1,7 +1,8 @@
-from util import *
+import sys
 import fastdeploy as fd
 import os
-
+sys.path.append("..")
+from util import *
 
 class FastdeployTestPPOCR(FastdeployTest):
     def __init__(self, data_dir_name: str, model_dir_name: str, model_name: str, url: str ,csv_path="./test.csv"):
@@ -18,11 +19,11 @@ class TestPPOCRv3Test(object):
     
     def setup_class(self):
 
-        self.util = FastdeployTestPPOCR(data_dir_name="ICDAR2017_10", 
+        self.util = FastdeployTestPPOCR(data_dir_name="ICDAR2017_200", 
             model_dir_name="PPOCRv3_models", 
             model_name="PPOCRv3",
-            url="https://bj.bcebos.com/paddlehub/fastdeploy/PPOCRv3_ICDAR2017_10_res.txt",
-            csv_path="./infer_result/PPOCRv3_result.csv")
+            url="https://bj.bcebos.com/paddlehub/fastdeploy/PPOCRv3_ICDAR2017_200.txt",
+            csv_path="../infer_result/PPOCRv3_result.csv")
 
         # Det Model
         self.det_model_path = os.path.join(self.util.model_path, "ch_PP-OCRv3_det_infer")  

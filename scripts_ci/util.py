@@ -1,5 +1,6 @@
 import yaml
 import os
+import cv2
 import sys
 sys.path.append("../")
 from tools.download_models import download
@@ -104,7 +105,7 @@ def ppocr_diff_check(ocr_model, image_file_path, local_result_path ,model_name="
                 #rec
                 diff = round(list_local[i],6) - round(list_fd[i],6)
                 write2excel(model_name, case_name, list_fd[i], list_local[i], diff, csv_path)
-                assert(abs(diff) < 0.00001),"Diff exist in rec scores result, where is {} - {} .".format(list_local,list_fd)
+                assert(abs(diff) < 0.001),"Diff exist in rec scores result, where is {} - {} .".format(list_local,list_fd)
             elif (i == 9):
                 diff = list_local[i] - list_fd[i]
                 write2excel(model_name, case_name, list_fd[i], list_local[i], diff, csv_path)
@@ -112,10 +113,9 @@ def ppocr_diff_check(ocr_model, image_file_path, local_result_path ,model_name="
             else:
                 diff = round(list_local[i],6) - round(list_fd[i],6)
                 write2excel(model_name, case_name, list_fd[i], list_local[i], diff, csv_path)
-                assert(abs(diff) < 0.00001),"Diff exist in cls score result, where is {} - {} .".format(list_local,list_fd)
+                assert(abs(diff) < 0.001),"Diff exist in cls score result, where is {} - {} .".format(list_local,list_fd)
     print("==== Finish PPOCR diff check ==== ")
                 
-
 
 def write2excel(model_name, case_name, result_value, ground_truth_val, diff, file_path):
     import csv
