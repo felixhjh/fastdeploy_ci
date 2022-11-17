@@ -64,11 +64,11 @@ yolorp6:
 yolov5liteg:
   bbox_mmap: 0.44051467691869356
 yolov5s:
-  bbox_mmap: 0.4411245290261603
+  bbox_mmap: 0.4407803607890903
 yolov6s:
   bbox_mmap: 0.5098309062210715
 yolov7:
-  bbox_mmap: 0.6160441829831067
+  bbox_mmap: 0.6161132935889279
 yoloxs:
   bbox_mmap: 0.46895111467671824
 ppyoloe_crn_l_300e:
