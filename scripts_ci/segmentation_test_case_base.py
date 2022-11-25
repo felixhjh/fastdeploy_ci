@@ -37,14 +37,14 @@ class CaseBase(object):
         print(result)
         return result
 
-    @pytest.mark.skip(reason="PaddleSeg 暂时不支持ORT推理")
+#     @pytest.mark.skip(reason="PaddleSeg 暂时不支持ORT推理")
     def test_ort_cpu(self):
         self.option.use_ort_backend()
         self.option.use_cpu()
         result = self.run_predict()
         ret = check_result(result, self.util.ground_truth, "test_ort_cpu", self.model_name, self.diff, self.csv_save_path)
 
-    @pytest.mark.skip(reason="PaddleSeg 暂时不支持ORT推理")
+#     @pytest.mark.skip(reason="PaddleSeg 暂时不支持ORT推理")
     def test_ort_gpu(self):
         self.option.use_ort_backend()
         self.option.use_gpu(0)
@@ -64,8 +64,8 @@ class CaseBase(object):
         check_result(result, self.util.ground_truth, "test_paddle_gpu_backend", self.model_name, self.diff, self.csv_save_path)
 
     def test_trt(self):
-        if self.model_name in CaseBase.cases:
-            return
+#         if self.model_name in CaseBase.cases:
+#             return
         self.set_trt_info()
         result = self.run_predict()
         check_result(result, self.util.ground_truth, "test_trt", self.model_name, self.diff, self.csv_save_path)
