@@ -21,7 +21,7 @@ class TestPPOCRv3Test(object):
         self.util = FastdeployTestPPOCR(data_dir_name="ICDAR2017_10", 
             model_dir_name="PPOCRv3_models", 
             model_name="PPOCRv3",
-            url="https://bj.bcebos.com/paddlehub/fastdeploy/PPOCRv3_ICDAR2017_10_res.txt",
+            url="https://bj.bcebos.com/paddlehub/fastdeploy/PPOCRv3_ICDAR2017_10_BS.txt",
             csv_path="./infer_result/PPOCRv3_result.csv")
 
         # Det Model
@@ -48,23 +48,9 @@ class TestPPOCRv3Test(object):
     def teardown_method(self):
         pass
     
-    def test_paddle_gpu(self):
-        self.option.use_paddle_backend()
-        self.option.use_gpu()
-
-        det_model = fd.vision.ocr.DBDetector(self.det_pdmodel, self.det_pdiparams, runtime_option=self.option)
-        cls_model = fd.vision.ocr.Classifier(self.cls_pdmodel, self.cls_pdiparams, runtime_option=self.option)
-        rec_model = fd.vision.ocr.Recognizer(
-            self.rec_pdmodel,
-            self.rec_pdiparams,
-            self.rec_label_file,
-            runtime_option=self.option)
-        model = fd.vision.ocr.PPOCRv3(det_model=det_model, cls_model=cls_model, rec_model=rec_model)
-        ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_paddle_gpu", csv_path=self.csv_save_path)
-        
-
-    def test_openvino_cpu(self):
-        self.option.use_openvino_backend()
+    
+    def test_ort_cpu(self):
+        self.option.use_ort_backend()
         self.option.use_cpu()
 
         det_model = fd.vision.ocr.DBDetector(self.det_pdmodel, self.det_pdiparams, runtime_option=self.option)
@@ -75,7 +61,7 @@ class TestPPOCRv3Test(object):
             self.rec_label_file,
             runtime_option=self.option)
         model = fd.vision.ocr.PPOCRv3(det_model=det_model, cls_model=cls_model, rec_model=rec_model)
-        ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_openvino_cpu", csv_path=self.csv_save_path)
+        ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_ort_cpu", csv_path=self.csv_save_path)
 
 
     def test_ort_gpu(self):
@@ -91,6 +77,81 @@ class TestPPOCRv3Test(object):
             runtime_option=self.option)
         model = fd.vision.ocr.PPOCRv3(det_model=det_model, cls_model=cls_model, rec_model=rec_model)
         ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_ort_gpu", csv_path=self.csv_save_path)
+    
+
+    def test_paddle_gpu(self):
+        self.option.use_paddle_backend()
+        self.option.use_gpu()
+
+        det_model = fd.vision.ocr.DBDetector(self.det_pdmodel, self.det_pdiparams, runtime_option=self.option)
+        cls_model = fd.vision.ocr.Classifier(self.cls_pdmodel, self.cls_pdiparams, runtime_option=self.option)
+        rec_model = fd.vision.ocr.Recognizer(
+            self.rec_pdmodel,
+            self.rec_pdiparams,
+            self.rec_label_file,
+            runtime_option=self.option)
+        model = fd.vision.ocr.PPOCRv3(det_model=det_model, cls_model=cls_model, rec_model=rec_model)
+        ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_paddle_gpu", csv_path=self.csv_save_path)
+        
+    def test_paddle_cpu(self):
+        self.option.use_paddle_backend()
+        self.option.use_cpu()
+
+        det_model = fd.vision.ocr.DBDetector(self.det_pdmodel, self.det_pdiparams, runtime_option=self.option)
+        cls_model = fd.vision.ocr.Classifier(self.cls_pdmodel, self.cls_pdiparams, runtime_option=self.option)
+        rec_model = fd.vision.ocr.Recognizer(
+            self.rec_pdmodel,
+            self.rec_pdiparams,
+            self.rec_label_file,
+            runtime_option=self.option)
+        model = fd.vision.ocr.PPOCRv3(det_model=det_model, cls_model=cls_model, rec_model=rec_model)
+        ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_paddle_cpu", csv_path=self.csv_save_path)
 
         
+    def test_openvino_cpu(self):
+        self.option.use_openvino_backend()
+        self.option.use_cpu()
 
+        det_model = fd.vision.ocr.DBDetector(self.det_pdmodel, self.det_pdiparams, runtime_option=self.option)
+        cls_model = fd.vision.ocr.Classifier(self.cls_pdmodel, self.cls_pdiparams, runtime_option=self.option)
+        rec_model = fd.vision.ocr.Recognizer(
+            self.rec_pdmodel,
+            self.rec_pdiparams,
+            self.rec_label_file,
+            runtime_option=self.option)
+        model = fd.vision.ocr.PPOCRv3(det_model=det_model, cls_model=cls_model, rec_model=rec_model)
+        ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_openvino_cpu", csv_path=self.csv_save_path)
+
+
+    def test_trt_gpu(self):
+        self.option.use_trt_backend()
+        self.option.use_gpu()
+
+        # Det
+        det_option = self.option
+        det_option.set_trt_input_shape("x", [1, 3, 64, 64], [1, 3, 640, 640],
+                               [1, 3, 960, 960])
+        det_model = fd.vision.ocr.DBDetector(self.det_pdmodel, self.det_pdiparams, runtime_option=det_option)
+
+        # Cls
+        cls_option = self.option
+        cls_option.set_trt_input_shape("x", [1, 3, 48, 10], [10, 3, 48, 320],
+                               [64, 3, 48, 1024])
+        cls_model = fd.vision.ocr.Classifier(self.cls_pdmodel, self.cls_pdiparams, runtime_option=cls_option)
+
+        # Rec
+        rec_option = self.option
+        rec_option.set_trt_input_shape("x", [1, 3, 48, 10], [10, 3, 48, 320],
+                               [64, 3, 48, 2304])
+        rec_model = fd.vision.ocr.Recognizer(
+            self.rec_pdmodel,
+            self.rec_pdiparams,
+            self.rec_label_file,
+            runtime_option=rec_option)
+        
+
+        model = fd.vision.ocr.PPOCRv3(det_model=det_model, cls_model=cls_model, rec_model=rec_model)
+        ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_trt_gpu", csv_path=self.csv_save_path)
+
+
+    
