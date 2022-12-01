@@ -127,7 +127,6 @@ class TestPPOCRv2Test(object):
         self.option.use_trt_backend()
         self.option.use_gpu()
 
-        self.option.set_trt_max_workspace_size(1<<31) 
         # Det
         det_option = self.option
         det_option.set_trt_input_shape("x", [1, 3, 64, 64], [1, 3, 640, 640],

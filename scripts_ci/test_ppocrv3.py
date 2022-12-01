@@ -152,6 +152,3 @@ class TestPPOCRv3Test(object):
 
         model = fd.vision.ocr.PPOCRv3(det_model=det_model, cls_model=cls_model, rec_model=rec_model)
         ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_trt_gpu", csv_path=self.csv_save_path)
-
-
-    
