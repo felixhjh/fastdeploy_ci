@@ -18,7 +18,7 @@ wget -q https://bj.bcebos.com/paddlehub/fastdeploy/coco_dataset_ci.tgz
 wget -q https://bj.bcebos.com/paddlehub/fastdeploy/imagenet_dataset_ci.tgz
 wget -q https://bj.bcebos.com/paddlehub/fastdeploy/cityscapes.tgz
 wget -q https://bj.bcebos.com/paddlehub/fastdeploy/ICDAR2017_10.tgz
-for i in `ls ./*.tgz`
+for i in `ls | grep 'tar\|tgz'`
    do
      tar -zxvf $i >/dev/null
    done
