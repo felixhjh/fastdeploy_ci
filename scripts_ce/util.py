@@ -98,6 +98,7 @@ def ppocr_diff_check(ocr_model, image_file_path, local_result_path ,model_name="
     total_diff_num = 0 
 
     print("==== Begin to check OCR diff ====")
+    assert len(local_result)==len(fd_result), "The total number of predicted results is not equal to groundtruth."
     for list_local, list_fd in zip (local_result, fd_result):
 
         for i in range(len(list_local)):
