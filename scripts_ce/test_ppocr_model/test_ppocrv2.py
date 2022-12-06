@@ -23,7 +23,7 @@ class TestPPOCRv2Test(object):
         self.util = FastdeployTestPPOCR(data_dir_name="ICDAR2017_200", 
             model_dir_name="PPOCRv2_models", 
             model_name="PPOCRv2",
-            url="https://bj.bcebos.com/paddlehub/fastdeploy/PPOCRv2_ICDAR2017_200_BS.txt",
+            url="https://bj.bcebos.com/paddlehub/fastdeploy/PPOCRv2_ICDAR200_BS116_re.txt",
             csv_path="../infer_result/PPOCRv2_result.csv")
 
         # Det Model
@@ -62,6 +62,8 @@ class TestPPOCRv2Test(object):
             self.rec_label_file,
             runtime_option=self.option)
         model = fd.vision.ocr.PPOCRv2(det_model=det_model, cls_model=cls_model, rec_model=rec_model)
+        model.cls_batch_size = 1
+        model.rec_batch_size = 6
         ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_ort_cpu", csv_path=self.csv_save_path)
 
 
@@ -77,6 +79,9 @@ class TestPPOCRv2Test(object):
             self.rec_label_file,
             runtime_option=self.option)
         model = fd.vision.ocr.PPOCRv2(det_model=det_model, cls_model=cls_model, rec_model=rec_model)
+
+        model.cls_batch_size = 1
+        model.rec_batch_size = 6
         ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_ort_gpu", csv_path=self.csv_save_path)
     
     def test_paddle_gpu(self):
@@ -91,6 +96,9 @@ class TestPPOCRv2Test(object):
             self.rec_label_file,
             runtime_option=self.option)
         model = fd.vision.ocr.PPOCRv2(det_model=det_model, cls_model=cls_model, rec_model=rec_model)
+
+        model.cls_batch_size = 1
+        model.rec_batch_size = 6
         ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_paddle_gpu", csv_path=self.csv_save_path)
         
     def test_paddle_cpu(self):
@@ -105,6 +113,9 @@ class TestPPOCRv2Test(object):
             self.rec_label_file,
             runtime_option=self.option)
         model = fd.vision.ocr.PPOCRv2(det_model=det_model, cls_model=cls_model, rec_model=rec_model)
+
+        model.cls_batch_size = 1
+        model.rec_batch_size = 6
         ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_paddle_cpu", csv_path=self.csv_save_path)
 
         
@@ -120,6 +131,9 @@ class TestPPOCRv2Test(object):
             self.rec_label_file,
             runtime_option=self.option)
         model = fd.vision.ocr.PPOCRv2(det_model=det_model, cls_model=cls_model, rec_model=rec_model)
+
+        model.cls_batch_size = 1
+        model.rec_batch_size = 6
         ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_openvino_cpu", csv_path=self.csv_save_path)
     
 
@@ -151,5 +165,8 @@ class TestPPOCRv2Test(object):
         
 
         model = fd.vision.ocr.PPOCRv2(det_model=det_model, cls_model=cls_model, rec_model=rec_model)
+
+        model.cls_batch_size = 1
+        model.rec_batch_size = 6
         ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_trt_gpu", csv_path=self.csv_save_path)
 
