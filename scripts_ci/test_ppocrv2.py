@@ -2,7 +2,6 @@ from util import *
 import fastdeploy as fd
 import os
 
-@pytest.mark.skip(reason="临时跳过")
 class FastdeployTestPPOCR(FastdeployTest):
     def __init__(self, data_dir_name: str, model_dir_name: str, model_name: str, url: str ,csv_path="./test.csv"):
         self.py_version = os.environ.get("py_version")
@@ -13,7 +12,6 @@ class FastdeployTestPPOCR(FastdeployTest):
         self.check_file_exist(self.csv_path)
         self.ground_truth = self.get_ground_truth_from_url(url)
 
-@pytest.mark.skip(reason="临时跳过")
 class TestPPOCRv2Test(object):
     
     def setup_class(self):
