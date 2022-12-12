@@ -37,5 +37,5 @@ class TestYolov5Test(object):
         self.option.set_trt_input_shape("images", [1, 3, 320, 320], [1, 3, 640, 640], [1, 3, 1280, 1280])
         model = fd.vision.detection.YOLOv5(self.onnxmodel, "None", self.option)
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path, 0.001, 0.65)
-        check_result(result, self.util.ground_truth, case_name="test_trt", model_name=self.model_name, delta=0, csv_path=self.csv_save_path)
+        check_result(result, self.util.ground_truth, case_name="test_trt", model_name=self.model_name, delta=1e-06, csv_path=self.csv_save_path)
 
