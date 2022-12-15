@@ -64,7 +64,7 @@ yolorp6:
 yolov5liteg:
   bbox_mmap: 0.44051467691869356
 yolov5s:
-  bbox_mmap: 0.4407803607890903
+  bbox_mmap: 0.46877086674085316
 yolov6s:
   bbox_mmap: 0.5098309062210715
 yolov7:
