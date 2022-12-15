@@ -3,7 +3,7 @@ resnet50_vd :
         topk5 : 0.9444
 
 yolov5s :
-        bbox_mmap : 0.372
+        bbox_mmap : 0.375
 
 yoloxs :
         bbox_mmap : 0.405
