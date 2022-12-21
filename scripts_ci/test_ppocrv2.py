@@ -21,7 +21,7 @@ class TestPPOCRv2Test(object):
         self.util = FastdeployTestPPOCR(data_dir_name="ICDAR2017_10", 
             model_dir_name="PPOCRv2_models", 
             model_name="PPOCRv2",
-            url="https://bj.bcebos.com/paddlehub/fastdeploy/PPOCRv2_ICDAR10_BS116.txt",
+            url="https://bj.bcebos.com/paddlehub/fastdeploy/PPOCRv2_ICDAR10_BS116_1221.txt",
             csv_path="./infer_result/PPOCRv2_result.csv")
 
         # Det Model
