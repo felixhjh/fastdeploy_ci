@@ -1,6 +1,7 @@
 from util import *
 import fastdeploy as fd
 import os
+import pytest
 TEST_KUNLUNXIN=os.getenv("TEST_KUNLUNXIN","OFF")
 
 @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="test kunlunxin.")
