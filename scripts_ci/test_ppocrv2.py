@@ -1,6 +1,8 @@
 from util import *
 import fastdeploy as fd
 import os
+import pytest
+TEST_KUNLUNXIN=os.getenv("TEST_KUNLUNXIN","OFF")
 
 class FastdeployTestPPOCR(FastdeployTest):
     def __init__(self, data_dir_name: str, model_dir_name: str, model_name: str, url: str ,csv_path="./test.csv"):
@@ -63,7 +65,25 @@ class TestPPOCRv2Test(object):
         model.rec_batch_size = 6
         ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_ort_cpu", csv_path=self.csv_save_path)
 
+    @pytest.mark.skipif(TEST_KUNLUNXIN=="OFF", reason="test kunlunxin.")
+    def test_kunlunxin(self):
+        self.option = fd.RuntimeOption()
+        self.option.use_kunlunxin()
 
+        det_model = fd.vision.ocr.DBDetector(self.det_pdmodel, self.det_pdiparams, runtime_option=self.option)
+        cls_model = fd.vision.ocr.Classifier(self.cls_pdmodel, self.cls_pdiparams, runtime_option=self.option)
+        rec_model = fd.vision.ocr.Recognizer(
+            self.rec_pdmodel,
+            self.rec_pdiparams,
+            self.rec_label_file,
+            runtime_option=self.option)
+        model = fd.vision.ocr.PPOCRv2(det_model=det_model, cls_model=cls_model, rec_model=rec_model)
+
+        model.cls_batch_size = 1
+        model.rec_batch_size = 6
+        ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_ort_gpu", csv_path=self.csv_save_path)
+
+    @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="test kunlunxin.")
     def test_ort_gpu(self):
         self.option.use_ort_backend()
         self.option.use_gpu(0)
@@ -81,6 +101,7 @@ class TestPPOCRv2Test(object):
         model.rec_batch_size = 6
         ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_ort_gpu", csv_path=self.csv_save_path)
     
+    @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="test kunlunxin.")
     def test_paddle_gpu(self):
         self.option.use_paddle_backend()
         self.option.use_gpu()
@@ -115,7 +136,7 @@ class TestPPOCRv2Test(object):
         model.rec_batch_size = 6
         ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_paddle_cpu", csv_path=self.csv_save_path)
 
-        
+    @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="test kunlunxin.")  
     def test_openvino_cpu(self):
         self.option.use_openvino_backend()
         self.option.use_cpu()
@@ -133,7 +154,7 @@ class TestPPOCRv2Test(object):
         model.rec_batch_size = 6
         ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_openvino_cpu", csv_path=self.csv_save_path)
     
-
+    @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="test kunlunxin.")
     def test_trt_gpu(self):
         self.option.use_trt_backend()
         self.option.use_gpu()

@@ -1,7 +1,10 @@
 from util import *
 import fastdeploy as fd
 import os
+import pytest
+TEST_KUNLUNXIN=os.getenv("TEST_KUNLUNXIN","OFF")
 
+@pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="test kunlunxin.")
 class TestYolov5Test(object):
     def setup_class(self):
         self.util = FastdeployTest(data_dir_name="coco", model_dir_name="", model_name="yolov5s", csv_path="./infer_result/yolov5s_result.csv")
