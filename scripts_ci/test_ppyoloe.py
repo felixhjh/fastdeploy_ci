@@ -24,7 +24,7 @@ class TestPPYoloeTest(object):
         self.option.use_kunlunxin()
         model = fd.vision.detection.PPYOLOE(self.pdmodel, self.pdiparams, self.yaml_file, self.option)
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path)
-        check_result(result, self.util.ground_truth, case_name="test_openvino_cpu", model_name=self.model_name, delta=0, csv_path=self.csv_save_path)
+        check_result(result, self.util.ground_truth, case_name="test_kunlunxin", model_name=self.model_name, delta=0, csv_path=self.csv_save_path)
 
     @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="test kunlunxin.")
     def test_openvino_cpu(self):

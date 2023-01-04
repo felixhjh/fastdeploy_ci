@@ -41,7 +41,7 @@ class CaseBase(object):
     def test_kunlunxin(self):
         self.option.use_kunlunxin()
         result = self.run_predict()
-        ret = check_result(result, self.util.ground_truth, "test_ort_cpu", self.model_name, self.diff, self.csv_save_path)
+        ret = check_result(result, self.util.ground_truth, "test_kunlunxin", self.model_name, self.diff, self.csv_save_path)
 
     @pytest.mark.skip(reason="PaddleSeg 节省CI用时暂时跳过")
     def test_ort_cpu(self):

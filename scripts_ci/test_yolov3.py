@@ -27,6 +27,7 @@ class TestYOLOv3Test(object):
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path)
         check_result(result, self.util.ground_truth, case_name="test_paddle_gpu", model_name=self.model_name, delta=0, csv_path=self.csv_save_path)
 
+    @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="test kunlunxin.")
     def test_openvino_cpu(self):
         self.option.use_openvino_backend()
         self.option.use_cpu()
@@ -40,7 +41,7 @@ class TestYOLOv3Test(object):
         self.option.use_kunlunxin()
         model = fd.vision.detection.YOLOv3(self.pdmodel, self.pdiparams, self.yaml_file, self.option)
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path)
-        check_result(result, self.util.ground_truth, case_name="test_openvino_cpu", model_name=self.model_name, delta=0.01, csv_path=self.csv_save_path)
+        check_result(result, self.util.ground_truth, case_name="test_kunlunxin", model_name=self.model_name, delta=0.01, csv_path=self.csv_save_path)
 
     @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="test kunlunxin.")
     def test_ort_gpu(self):

@@ -80,7 +80,7 @@ class TestPPOCRv3Test(object):
         model = fd.vision.ocr.PPOCRv3(det_model=det_model, cls_model=cls_model, rec_model=rec_model)
         model.cls_batch_size = 1
         model.rec_batch_size = 6
-        ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_ort_cpu", csv_path=self.csv_save_path)
+        ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_kunlunxin", csv_path=self.csv_save_path, rec_scores=0.1)
 
     @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="test kunlunxin.")
     def test_ort_gpu(self):

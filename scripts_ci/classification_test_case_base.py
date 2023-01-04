@@ -40,7 +40,7 @@ class CaseBase(object):
     def test_kunlunxin(self):
         self.option.use_kunlunxin()
         result = self.run_predict()
-        ret = check_result(result, self.util.ground_truth, "test_ort_cpu", self.model_name, 0, self.csv_save_path)
+        ret = check_result(result, self.util.ground_truth, "test_kunlunxin", self.model_name, 0, self.csv_save_path)
 
     def test_ort_cpu(self):
         self.option.use_ort_backend()

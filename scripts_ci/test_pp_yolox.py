@@ -64,4 +64,4 @@ class TestPPYOLOXKunlunXinTest(object):
         model = fd.vision.detection.PaddleYOLOX(self.pdmodel, self.pdiparams, self.yaml_file, self.option)
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path)
         #TODO Paddle Inference GPU has abnormal result compare with baseline, modify delta to 1e-02
-        check_result(result, self.util.ground_truth, case_name="test_paddle_gpu", model_name=self.model_name, delta=1e-02, csv_path=self.csv_save_path)
+        check_result(result, self.util.ground_truth, case_name="test_kunlunxin", model_name=self.model_name, delta=1e-02, csv_path=self.csv_save_path)

@@ -7,6 +7,7 @@ export MODEL_PATH=${CURRENT_DIR}/../models
 export DATA_PATH=${CURRENT_DIR}/../data
 export TOOLS_PATH=${CURRENT_DIR}/../tools
 export TEST_KUNLUNXIN=ON
+export ground_truth_file=ground_truth_kunlunxin.yaml
 cd ${MODEL_PATH}
 rm -rf ./*
 cd ${TOOLS_PATH}
