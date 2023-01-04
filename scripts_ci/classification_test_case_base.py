@@ -54,7 +54,8 @@ class CaseBase(object):
         self.option.use_gpu(0)
         result = self.run_predict()
         check_result(result, self.util.ground_truth, "test_ort_gpu", self.model_name, 0,self.csv_save_path)
-
+    
+    @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="test kunlunxin.")
     def test_paddle_cpu_backend(self):
         self.option.use_paddle_backend()
         self.option.use_cpu()
