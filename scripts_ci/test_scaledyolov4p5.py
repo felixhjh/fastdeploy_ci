@@ -2,9 +2,9 @@ from util import *
 import fastdeploy as fd
 import os
 import pytest
-TEST_KUNLUNXIN=os.getenv("TEST_KUNLUNXIN","OFF")
+TEST_NNADAPTER=os.getenv("TEST_NNADAPTER", "OFF")
 
-@pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="Test KunlunXin.")
+@pytest.mark.skipif(TEST_NNADAPTER!="OFF", reason="Test NNADAPTER.")
 class TestScaledYOLOv4Test(object):
     def setup_class(self):
         self.util = FastdeployTest(data_dir_name="coco", model_dir_name="", model_name="scaledyolov4p5", csv_path="./infer_result/scaledyolov4p5_result.csv")

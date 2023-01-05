@@ -2,9 +2,9 @@ from util import *
 import fastdeploy as fd
 import os
 import pytest
-TEST_KUNLUNXIN=os.getenv("TEST_KUNLUNXIN","OFF")
+TEST_NNADAPTER=os.getenv("TEST_NNADAPTER", "OFF")
 
-@pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="Test KunlunXin.")
+@pytest.mark.skipif(TEST_NNADAPTER!="OFF", reason="Test NNADAPTER.")
 class TestYolov5Test(object):
     def setup_class(self):
         self.util = FastdeployTest(data_dir_name="coco", model_dir_name="", model_name="yolov5s", csv_path="./infer_result/yolov5s_result.csv")
@@ -42,8 +42,8 @@ class TestYolov5Test(object):
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path, 0.001, 0.65)
         check_result(result, self.util.ground_truth, case_name="test_trt", model_name=self.model_name, delta=1e-06, csv_path=self.csv_save_path)
 
-@pytest.mark.skipif(TEST_KUNLUNXIN=="OFF", reason="Test KunlunXin is OFF.")
-class TestYolov5sKunlunXinTest(object):
+@pytest.mark.skipif(TEST_NNADAPTER=="OFF", reason="Test NNADAPTER is OFF.")
+class TestYolov5sNNADAPTERTest(object):
     def setup_class(self):
         self.util = FastdeployTest(data_dir_name="coco", model_dir_name="yolov5s_infer", model_name="yolov5s", csv_path="./infer_result/yolov5s_result.csv")
         self.pdiparams = os.path.join(self.util.model_path, "model.pdiparams")
@@ -56,11 +56,11 @@ class TestYolov5sKunlunXinTest(object):
     def teardown_method(self):
         pass
     
-    def test_KunlunXin(self):
+    def test_nnadapter(self):
         option = fd.RuntimeOption()
-        option.use_kunlunxin()
+        getattr(option, TEST_NNADAPTER)()
         model = fd.vision.detection.YOLOv6(self.pdmodel, self.pdiparams, runtime_option=option, model_format=fd.ModelFormat.PADDLE)
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path, 0.001, 0.65)
-        check_result(result, self.util.ground_truth, case_name="test_KunlunXin", model_name=self.model_name, delta=0, csv_path=self.csv_save_path)
+        check_result(result, self.util.ground_truth, case_name="test_nnadapter", model_name=self.model_name, delta=0, csv_path=self.csv_save_path)
 
 
