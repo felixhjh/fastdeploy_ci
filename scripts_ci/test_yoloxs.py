@@ -1,7 +1,10 @@
 from util import *
 import fastdeploy as fd
 import os
+import pytest
+TEST_NNADAPTER=os.getenv("TEST_NNADAPTER", "OFF")
 
+@pytest.mark.skipif(TEST_NNADAPTER!="OFF", reason="Test NNADAPTER.")
 class TestYoloXTest(object):
     def setup_class(self):
         self.util = FastdeployTest(data_dir_name="coco", model_dir_name="", model_name="yoloxs", csv_path="./infer_result/yoloxs_result.csv")

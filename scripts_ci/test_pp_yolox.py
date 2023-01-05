@@ -1,7 +1,9 @@
 from util import *
 import fastdeploy as fd
 import os
-
+import pytest
+TEST_NNADAPTER=os.getenv("TEST_NNADAPTER", "OFF")
+@pytest.mark.skipif(TEST_NNADAPTER!="OFF", reason="Test NNADAPTER.")
 class TestPPYOLOXTest(object):
     def setup_class(self):
         self.util = FastdeployTest(data_dir_name="coco", model_dir_name="yolox_s_300e_coco", model_name="yolox_s_300e_coco", csv_path="./infer_result/ppyolox_result.csv")
@@ -40,3 +42,25 @@ class TestPPYOLOXTest(object):
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path)
         check_result(result, self.util.ground_truth, case_name="test_trt", model_name=self.model_name, delta=1e-4, csv_path=self.csv_save_path)
 
+@pytest.mark.skipif(TEST_NNADAPTER=="OFF", reason="Test NNADAPTER is OFF.")
+class TestPPYOLOXNNADAPTERTest(object):
+    def setup_class(self):
+        self.util = FastdeployTest(data_dir_name="coco", model_dir_name="yolox_s_300e_coco", model_name="yolox_s_300e_coco", csv_path="./infer_result/ppyolox_result.csv")
+        self.pdiparams = os.path.join(self.util.model_path, "model.pdiparams")
+        self.pdmodel = os.path.join(self.util.model_path, "model.pdmodel")
+        self.yaml_file = os.path.join(self.util.model_path, "infer_cfg.yml")
+        self.image_file_path = os.path.join(self.util.data_path, "val2017_50")
+        self.annotation_file_path = os.path.join(self.util.data_path, "annotations/instances_val2017_50.json")
+        self.option = fd.RuntimeOption()
+        self.model_name = self.util.model_name
+        self.csv_save_path = self.util.csv_path
+        
+    def teardown_method(self):
+        pass
+    
+    def test_nnadapter(self):
+        getattr(self.option, TEST_NNADAPTER)()
+        model = fd.vision.detection.PaddleYOLOX(self.pdmodel, self.pdiparams, self.yaml_file, self.option)
+        result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path)
+        #TODO Paddle Inference GPU has abnormal result compare with baseline, modify delta to 1e-02
+        check_result(result, self.util.ground_truth, case_name="test_nnadapter", model_name=self.model_name, delta=1e-02, csv_path=self.csv_save_path)

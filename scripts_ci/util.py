@@ -4,7 +4,7 @@ import cv2
 import sys
 sys.path.append("../")
 from tools.download_models import download
-
+ground_truth_file=os.getenv("ground_truth_file")
 class FastdeployTest(object):
     def __init__(self, data_dir_name: str, model_dir_name: str, model_name: str, csv_path="./test.csv"):
         """
@@ -27,7 +27,7 @@ class FastdeployTest(object):
             os.remove(csv_path)
 
     def get_ground_truth(self, model_name):
-        f = open('ground_truth.yaml', 'r', encoding="utf-8")
+        f = open(ground_truth_file, 'r', encoding="utf-8")
         data = yaml.load(f, Loader=yaml.FullLoader)
         return data[model_name]
 

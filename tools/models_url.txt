@@ -37,3 +37,6 @@ https://bj.bcebos.com/paddlehub/fastdeploy/yolox_s_300e_coco.tgz
 https://bj.bcebos.com/paddlehub/fastdeploy/picodet_l_320_coco_lcnet.tgz
 https://bj.bcebos.com/paddlehub/fastdeploy/PPOCRv3_models.tar
 https://bj.bcebos.com/paddlehub/fastdeploy/PPOCRv2_models.tar
+https://bj.bcebos.com/paddlehub/fastdeploy/yolov5s_infer.tar
+https://bj.bcebos.com/paddlehub/fastdeploy/yolov6s_infer.tar
+https://bj.bcebos.com/paddlehub/fastdeploy/yolov7_infer.tar
