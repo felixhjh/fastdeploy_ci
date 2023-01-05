@@ -38,8 +38,10 @@ class CaseBase(object):
 
     @pytest.mark.skipif(TEST_NNADAPTER=="OFF", reason="Test NNADAPTER is OFF.")
     def test_nnadapter(self):
+        self.option = fd.RuntimeOption()
         getattr(self.option, TEST_NNADAPTER)()
-        ret = check_result(result, self.util.ground_truth, "test_nnadapter", self.model_name, 0, self.csv_save_path)
+        result = self.run_predict()
+        ret = check_result(result, self.util.ground_truth, "test_ort_cpu", self.model_name, 0, self.csv_save_path)
 
     @pytest.mark.skipif(TEST_NNADAPTER!="OFF", reason="Test NNADAPTER.")
     def test_ort_cpu(self):
