@@ -4,7 +4,7 @@ import os
 import pytest
 
 TEST_KUNLUNXIN=os.getenv("TEST_KUNLUNXIN","OFF")
-@pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="test kunlunxin.")
+@pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="Test KunlunXin.")
 class TestPicoDetTest(object):
     def setup_class(self):
         self.util = FastdeployTest(data_dir_name="coco", model_dir_name="picodet_l_320_coco_lcnet", model_name="picodet_l_320_coco_lcnet", csv_path="./infer_result/picodet_result.csv")
@@ -50,7 +50,7 @@ class TestPicoDetTest(object):
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path)
         check_result(result, self.util.ground_truth, case_name="test_trt", model_name=self.model_name, delta=0.001, csv_path=self.csv_save_path)
 
-@pytest.mark.skipif(TEST_KUNLUNXIN=="OFF", reason="skip test kunlunxin.")
+@pytest.mark.skipif(TEST_KUNLUNXIN=="OFF", reason="Test KunlunXin is OFF.")
 class TestPicoDetKunlunXinTest(object):
     def setup_class(self):
         self.util = FastdeployTest(data_dir_name="coco", model_dir_name="picodet_l_320_coco_lcnet", model_name="picodet_l_320_coco_lcnet", csv_path="./infer_result/picodet_result.csv")

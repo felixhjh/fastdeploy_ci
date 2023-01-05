@@ -4,7 +4,7 @@ import os
 import pytest
 TEST_KUNLUNXIN=os.getenv("TEST_KUNLUNXIN","OFF")
 
-@pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="test kunlunxin.")
+@pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="Test KunlunXin.")
 class TestPPYOLOXTest(object):
     def setup_class(self):
         self.util = FastdeployTest(data_dir_name="coco", model_dir_name="yolox_s_300e_coco", model_name="yolox_s_300e_coco", csv_path="./infer_result/ppyolox_result.csv")
@@ -43,7 +43,7 @@ class TestPPYOLOXTest(object):
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path)
         check_result(result, self.util.ground_truth, case_name="test_trt", model_name=self.model_name, delta=1e-4, csv_path=self.csv_save_path)
 
-@pytest.mark.skipif(TEST_KUNLUNXIN=="OFF", reason="skip test kunlunxin.")
+@pytest.mark.skipif(TEST_KUNLUNXIN=="OFF", reason="Test KunlunXin is OFF.")
 class TestPPYOLOXKunlunXinTest(object):
     def setup_class(self):
         self.util = FastdeployTest(data_dir_name="coco", model_dir_name="yolox_s_300e_coco", model_name="yolox_s_300e_coco", csv_path="./infer_result/ppyolox_result.csv")

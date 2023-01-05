@@ -36,33 +36,34 @@ class CaseBase(object):
         result.update(tok5_result)
         return result
 
-    @pytest.mark.skipif(TEST_KUNLUNXIN=="OFF", reason="skip test kunlunxin.")
+    @pytest.mark.skipif(TEST_KUNLUNXIN=="OFF", reason="Test KunlunXin is OFF.")
     def test_kunlunxin(self):
         self.option.use_kunlunxin()
         result = self.run_predict()
         ret = check_result(result, self.util.ground_truth, "test_kunlunxin", self.model_name, 0, self.csv_save_path)
 
+    @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="Test KunlunXin.")
     def test_ort_cpu(self):
         self.option.use_ort_backend()
         self.option.use_cpu()
         result = self.run_predict()
         ret = check_result(result, self.util.ground_truth, "test_ort_cpu", self.model_name, 0, self.csv_save_path)
 
-    @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="test kunlunxin.")
+    @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="Test KunlunXin.")
     def test_ort_gpu(self):
         self.option.use_ort_backend()
         self.option.use_gpu(0)
         result = self.run_predict()
         check_result(result, self.util.ground_truth, "test_ort_gpu", self.model_name, 0,self.csv_save_path)
     
-    @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="test kunlunxin.")
+    @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="Test KunlunXin.")
     def test_paddle_cpu_backend(self):
         self.option.use_paddle_backend()
         self.option.use_cpu()
         result = self.run_predict()
         check_result(result, self.util.ground_truth, "test_paddle_cpu_backend", self.model_name, 0,self.csv_save_path)
 
-    @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="test kunlunxin.")
+    @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="Test KunlunXin.")
     def test_paddle_gpu_backend(self):
         if self.model_name in CaseBase.cases:
             return
@@ -71,7 +72,7 @@ class CaseBase(object):
         result = self.run_predict()
         check_result(result, self.util.ground_truth, "test_paddle_gpu_backend", self.model_name, 0, self.csv_save_path)
 
-    @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="test kunlunxin.")
+    @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="Test KunlunXin.")
     def test_trt(self):
         self.set_trt_info()
         result = self.run_predict()

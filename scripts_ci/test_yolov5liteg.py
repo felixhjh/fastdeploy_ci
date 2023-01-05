@@ -4,7 +4,7 @@ import os
 import pytest
 TEST_KUNLUNXIN=os.getenv("TEST_KUNLUNXIN","OFF")
 
-@pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="test kunlunxin.")
+@pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="Test KunlunXin.")
 class TestYoloV5LiteTest(object):
     def setup_class(self):
         self.util = FastdeployTest(data_dir_name="coco", model_dir_name="", model_name="yolov5liteg", csv_path="./infer_result/yolov5liteg_result.csv")

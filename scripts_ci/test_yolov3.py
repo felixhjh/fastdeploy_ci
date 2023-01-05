@@ -19,7 +19,7 @@ class TestYOLOv3Test(object):
     def teardown_method(self):
         pass
     
-    @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="test kunlunxin.")
+    @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="Test KunlunXin.")
     def test_paddle_gpu(self):
         self.option.use_paddle_backend()
         self.option.use_gpu()
@@ -27,7 +27,7 @@ class TestYOLOv3Test(object):
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path)
         check_result(result, self.util.ground_truth, case_name="test_paddle_gpu", model_name=self.model_name, delta=0, csv_path=self.csv_save_path)
 
-    @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="test kunlunxin.")
+    @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="Test KunlunXin.")
     def test_openvino_cpu(self):
         self.option.use_openvino_backend()
         self.option.use_cpu()
@@ -35,7 +35,7 @@ class TestYOLOv3Test(object):
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path)
         check_result(result, self.util.ground_truth, case_name="test_openvino_cpu", model_name=self.model_name, delta=0.01, csv_path=self.csv_save_path)
 
-    @pytest.mark.skipif(TEST_KUNLUNXIN=="OFF", reason="test kunlunxin.")
+    @pytest.mark.skipif(TEST_KUNLUNXIN=="OFF", reason="Test KunlunXin is OFF.")
     def test_kunlunxin(self):
         self.option = fd.RuntimeOption()
         self.option.use_kunlunxin()
@@ -43,7 +43,7 @@ class TestYOLOv3Test(object):
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path)
         check_result(result, self.util.ground_truth, case_name="test_kunlunxin", model_name=self.model_name, delta=0.01, csv_path=self.csv_save_path)
 
-    @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="test kunlunxin.")
+    @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="Test KunlunXin.")
     def test_ort_gpu(self):
         self.option.use_ort_backend()
         self.option.use_gpu(0)
@@ -51,7 +51,7 @@ class TestYOLOv3Test(object):
         result = fd.vision.evaluation.eval_detection(model, self.image_file_path, self.annotation_file_path)
         check_result(result, self.util.ground_truth, case_name="test_ort_gpu", model_name=self.model_name, delta=0, csv_path=self.csv_save_path)
 
-    @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="test kunlunxin.")
+    @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="Test KunlunXin.")
     def test_trt(self):
         self.option.use_trt_backend()
         self.option.use_gpu(0)
