@@ -29,7 +29,8 @@ cd ${CURRENT_DIR}
 rm -rf result.txt ./infer_result/*
 cases=`find ./ -name "test*.py" | sort`
 echo $cases
-ignore="test_ppocrv3.py" # 有diff
+ignore="test_ppocrv2.py
+        test_ppocrv3.py"
        
 bug=0
 

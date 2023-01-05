@@ -82,7 +82,7 @@ class TestPPOCRv2Test(object):
 
         model.cls_batch_size = 1
         model.rec_batch_size = 6
-        ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_kunlunxin", csv_path=self.csv_save_path, rec_scores=1.0)
+        ppocr_diff_check(model, self.image_file_path, self.local_result_path , model_name=self.model_name, case_name="test_kunlunxin", csv_path=self.csv_save_path)
 
     @pytest.mark.skipif(TEST_KUNLUNXIN=="ON", reason="test kunlunxin.")
     def test_ort_gpu(self):

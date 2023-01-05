@@ -57,7 +57,7 @@ def check_result(result_data: dict, ground_truth_data: dict, case_name="", model
     return 0
 
 
-def ppocr_diff_check(ocr_model, image_file_path, local_result_path ,model_name="", case_name="", csv_path='./test.csv', rec_scores=0.001):
+def ppocr_diff_check(ocr_model, image_file_path, local_result_path ,model_name="", case_name="", csv_path='./test.csv'):
     
     # Prepare Images
     img_dir = image_file_path
@@ -106,7 +106,7 @@ def ppocr_diff_check(ocr_model, image_file_path, local_result_path ,model_name="
                 #rec
                 diff = round(list_local[i],6) - round(list_fd[i],6)
                 write2excel(model_name, case_name, list_fd[i], list_local[i], diff, csv_path)
-                assert(abs(diff) < rec_scores),"Diff exist in rec scores result, where is {} - {} .".format(list_local,list_fd)
+                assert(abs(diff) < 0.001),"Diff exist in rec scores result, where is {} - {} .".format(list_local,list_fd)
             elif (i == 9):
                 diff = list_local[i] - list_fd[i]
                 write2excel(model_name, case_name, list_fd[i], list_local[i], diff, csv_path)
