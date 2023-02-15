@@ -41,7 +41,7 @@ class CaseBase(object):
     def test_nnadapter(self):
         getattr(self.option, TEST_NNADAPTER)()
         result = self.run_predict()
-        ret = check_result(result, self.util.ground_truth, "test_nnadapter", self.model_name, self.diff, self.csv_save_path)
+        ret = check_result(result, self.util.ground_truth, "test_nnadapter", self.model_name, 1e-3, self.csv_save_path)
 
     @pytest.mark.skip(reason="PaddleSeg 节省CI用时暂时跳过")
     def test_ort_cpu(self):
