@@ -14,6 +14,9 @@ class TestDeeplabv3_ResNet101_OS8Test(CaseBase):
     def test_nnadapter(self):
         getattr(self.option, TEST_NNADAPTER)()
         result = self.run_predict()
-        ret = check_result(result, self.util.ground_truth, "test_nnadapter", self.model_name, 1e-2, self.csv_save_path)
+        diff=1e-3
+        if(TEST_NNADAPTER=="use_kunlunxin"):
+            diff=1e-2
+        ret = check_result(result, self.util.ground_truth, "test_nnadapter", self.model_name, diff, self.csv_save_path)
 
 
