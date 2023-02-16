@@ -1,7 +1,10 @@
 from util import *
 import fastdeploy as fd
 import os
+import pytest
+TEST_NNADAPTER=os.getenv("TEST_NNADAPTER", "OFF")
 
+@pytest.mark.skipif(TEST_NNADAPTER!="OFF", reason="Test NNADAPTER.")
 class TestNanoDetPlusTest(object):
     def setup_class(self):
         self.util = FastdeployTest(data_dir_name="coco", model_dir_name="", model_name="nanodet_plus_m_320", csv_path="./infer_result/nanodet_plus_m_320_result.csv")

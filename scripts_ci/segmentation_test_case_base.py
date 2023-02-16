@@ -2,7 +2,7 @@ from util import *
 import fastdeploy as fd
 import os
 import pytest
-
+TEST_NNADAPTER=os.getenv("TEST_NNADAPTER", "OFF")
 class CaseBase(object):
 
     #temp skip hrnet-w18 ort_gpu  https://github.com/microsoft/onnxruntime/issues/11548
@@ -37,6 +37,12 @@ class CaseBase(object):
         print(result)
         return result
 
+    @pytest.mark.skipif(TEST_NNADAPTER=="OFF", reason="Test NNADAPTER is OFF.")
+    def test_nnadapter(self):
+        getattr(self.option, TEST_NNADAPTER)()
+        result = self.run_predict()
+        ret = check_result(result, self.util.ground_truth, "test_nnadapter", self.model_name, 1e-3, self.csv_save_path)
+
     @pytest.mark.skip(reason="PaddleSeg 节省CI用时暂时跳过")
     def test_ort_cpu(self):
         self.option.use_ort_backend()
@@ -45,6 +51,7 @@ class CaseBase(object):
         ret = check_result(result, self.util.ground_truth, "test_ort_cpu", self.model_name, self.diff, self.csv_save_path)
 
 #     @pytest.mark.skip(reason="PaddleSeg 暂时不支持ORT推理")
+    @pytest.mark.skipif(TEST_NNADAPTER!="OFF", reason="Test NNADAPTER.")
     def test_ort_gpu(self):
         if self.model_name in CaseBase.cases:
             return
@@ -60,12 +67,14 @@ class CaseBase(object):
         result = self.run_predict()
         check_result(result, self.util.ground_truth, "test_paddle_cpu_backend", self.model_name, self.diff, self.csv_save_path)
 
+    @pytest.mark.skipif(TEST_NNADAPTER!="OFF", reason="Test NNADAPTER.")
     def test_paddle_gpu_backend(self):
         self.option.use_paddle_backend()
         self.option.use_gpu(0)
         result = self.run_predict()
         check_result(result, self.util.ground_truth, "test_paddle_gpu_backend", self.model_name, self.diff, self.csv_save_path)
-
+    
+    @pytest.mark.skipif(TEST_NNADAPTER!="OFF", reason="Test NNADAPTER.")
     def test_trt(self):
 #         if self.model_name in CaseBase.cases:
 #             return
