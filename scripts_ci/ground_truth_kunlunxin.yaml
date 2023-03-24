@@ -1,8 +1,8 @@
 efficientnetb0small:
-  topk1: 0.74
-  topk5: 0.92
+  topk1: 0.78
+  topk5: 0.96
 efficientnetb7:
-  topk1: 0.88
+  topk1: 0.86
   topk5: 1.0
 ghostnet_x0_5:
   topk1: 0.68

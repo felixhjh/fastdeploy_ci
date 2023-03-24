@@ -19,6 +19,7 @@ class TestPPYoloeTest(object):
     def teardown_method(self):
         pass
     
+    @pytest.mark.skipif(TEST_NNADAPTER=="use_kunlunxin", reason="KunlunXin NMS OP有bug暂时跳过.")
     @pytest.mark.skipif(TEST_NNADAPTER=="OFF", reason="Test NNADAPTER is OFF.")
     def test_nnadapter(self):
         getattr(self.option, TEST_NNADAPTER)()

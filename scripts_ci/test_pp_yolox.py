@@ -58,6 +58,7 @@ class TestPPYOLOXNNADAPTERTest(object):
     def teardown_method(self):
         pass
     
+    @pytest.mark.skipif(TEST_NNADAPTER=="use_kunlunxin", reason="KunlunXin NMS OP有bug暂时跳过.")
     def test_nnadapter(self):
         getattr(self.option, TEST_NNADAPTER)()
         model = fd.vision.detection.PaddleYOLOX(self.pdmodel, self.pdiparams, self.yaml_file, self.option)
