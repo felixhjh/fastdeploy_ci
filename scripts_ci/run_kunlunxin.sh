@@ -3,6 +3,7 @@ ci_bt=`date '+%s'`
 CURRENT_DIR=$(cd $(dirname $0); pwd)
 export no_proxy=bcebos.com
 export py_version=python
+export XPU_VISIBLE_DEVICES=6
 export MODEL_PATH=${CURRENT_DIR}/../models
 export DATA_PATH=${CURRENT_DIR}/../data
 export TOOLS_PATH=${CURRENT_DIR}/../tools
